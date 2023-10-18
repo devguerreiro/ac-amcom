@@ -2,7 +2,7 @@ import React, { useState } from "react";
 
 import Head from "next/head";
 
-import CssBaseline from "@mui/material/CssBaseline";
+import { Container, CssBaseline } from "@mui/material";
 
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
@@ -28,7 +28,9 @@ export default function Layout({ children }: ILayoutProps) {
             <CssBaseline />
             <Header onMenuClick={toggleNavbar} />
             <Navbar isOpen={isNavbarOpen} onClose={closeNavbar} />
-            <main>{children}</main>
+            <main>
+                <Container>{children}</Container>
+            </main>
         </>
     );
 }

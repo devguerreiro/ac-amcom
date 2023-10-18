@@ -1,10 +1,9 @@
+import Link from "next/link";
 import Image from "next/image";
 
-import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
-import IconButton from "@mui/material/IconButton";
-import Toolbar from "@mui/material/Toolbar";
-import MenuIcon from "@mui/icons-material/Menu";
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+
+import { Menu as MenuIcon } from "@mui/icons-material";
 
 interface IProps {
     onMenuClick: () => void;
@@ -16,7 +15,7 @@ export default function Header({ onMenuClick }: IProps) {
     return (
         <Box>
             <AppBar
-                position="fixed"
+                position="static"
                 sx={{
                     height: HEIGHT,
                     display: "flex",
@@ -36,12 +35,14 @@ export default function Header({ onMenuClick }: IProps) {
                         <MenuIcon />
                     </IconButton>
                 </Toolbar>
-                <Image
-                    src="/amcom-logo.png"
-                    width={202}
-                    height={56}
-                    alt="Logo AMcom"
-                />
+                <Link href="/">
+                    <Image
+                        src="/amcom-logo.png"
+                        width={202}
+                        height={56}
+                        alt="Logo AMcom"
+                    />
+                </Link>
             </AppBar>
         </Box>
     );
