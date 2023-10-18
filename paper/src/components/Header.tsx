@@ -7,21 +7,25 @@ import Toolbar from "@mui/material/Toolbar";
 import MenuIcon from "@mui/icons-material/Menu";
 
 interface IProps {
-    toggleNavbar: () => void;
+    onMenuClick: () => void;
 }
 
-export default function Header({ toggleNavbar }: IProps) {
+export const HEIGHT = 87;
+
+export default function Header({ onMenuClick }: IProps) {
     return (
         <Box>
             <AppBar
-                position="static"
+                position="fixed"
                 sx={{
+                    height: HEIGHT,
                     display: "flex",
                     flexDirection: "row",
                     alignItems: "center",
+                    zIndex: (theme) => theme.zIndex.drawer + 1,
                 }}
             >
-                <Toolbar onClick={() => toggleNavbar}>
+                <Toolbar onClick={onMenuClick}>
                     <IconButton
                         size="large"
                         edge="start"
@@ -33,8 +37,8 @@ export default function Header({ toggleNavbar }: IProps) {
                 </Toolbar>
                 <Image
                     src="/amcom-logo.png"
-                    width={50}
-                    height={50}
+                    width={202}
+                    height={56}
                     alt="Logo AMcom"
                 />
             </AppBar>
