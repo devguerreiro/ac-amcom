@@ -1,46 +1,59 @@
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import MenuItem from "@mui/material/MenuItem";
-import MenuList from "@mui/material/MenuList";
-import SwipeableDrawer from "@mui/material/SwipeableDrawer";
-import Box from "@mui/material/Box";
+import {
+    ListItemIcon,
+    ListItemText,
+    MenuItem,
+    MenuList,
+    SwipeableDrawer,
+} from "@mui/material";
 
-import PointOfSale from "@mui/icons-material/PointOfSale";
-import Calculate from "@mui/icons-material/Calculate";
-import ChevronRight from "@mui/icons-material/ChevronRight";
+import {
+    PointOfSale as PointOfSaleIcon,
+    Calculate as CalculateIcon,
+    ChevronRight as ChevronRightIcon,
+} from "@mui/icons-material";
 
 import { HEIGHT } from "./Header";
+import { useRouter } from "next/router";
 
 interface IProps {
     isOpen: boolean;
     onClose: () => void;
 }
+
 export default function Navbar({ isOpen, onClose }: IProps) {
+    const router = useRouter();
+
     return (
         <SwipeableDrawer
+            sx={{
+                "& .MuiDrawer-paper": {
+                    width: 273,
+                    mt: HEIGHT + "px",
+                },
+            }}
             anchor="left"
             open={isOpen}
             onClose={onClose}
             onOpen={() => {}}
         >
-            <Box sx={{ width: 273, marginTop: HEIGHT + "px" }}>
+            <nav>
                 <MenuList onClick={onClose}>
-                    <MenuItem>
+                    <MenuItem onClick={() => router.push("/sales")}>
                         <ListItemIcon>
-                            <PointOfSale />
+                            <PointOfSaleIcon />
                         </ListItemIcon>
                         <ListItemText>Vendas</ListItemText>
-                        <ChevronRight />
+                        <ChevronRightIcon />
                     </MenuItem>
                     <MenuItem>
                         <ListItemIcon>
-                            <Calculate />
+                            <CalculateIcon />
                         </ListItemIcon>
                         <ListItemText>Comissões</ListItemText>
-                        <ChevronRight />
+                        <ChevronRightIcon />
                     </MenuItem>
                 </MenuList>
-            </Box>
+            </nav>
         </SwipeableDrawer>
     );
 }
