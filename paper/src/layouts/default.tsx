@@ -14,7 +14,7 @@ interface ILayoutProps {
 export default function Layout({ children }: ILayoutProps) {
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-    const openNavbar = () => setIsNavbarOpen(true);
+    const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
     const closeNavbar = () => setIsNavbarOpen(false);
 
     return (
@@ -26,7 +26,7 @@ export default function Layout({ children }: ILayoutProps) {
                 />
             </Head>
             <CssBaseline />
-            <Header onMenuClick={openNavbar} />
+            <Header onMenuClick={toggleNavbar} />
             <Navbar isOpen={isNavbarOpen} onClose={closeNavbar} />
             <main>{children}</main>
         </>

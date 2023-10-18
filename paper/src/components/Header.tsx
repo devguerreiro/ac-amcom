@@ -25,12 +25,13 @@ export default function Header({ onMenuClick }: IProps) {
                     zIndex: (theme) => theme.zIndex.drawer + 1,
                 }}
             >
-                <Toolbar onClick={onMenuClick}>
+                <Toolbar>
                     <IconButton
                         size="large"
                         edge="start"
                         color="inherit"
                         aria-label="menu"
+                        onClick={onMenuClick}
                     >
                         <MenuIcon />
                     </IconButton>
