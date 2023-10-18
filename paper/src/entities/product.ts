@@ -1,4 +1,12 @@
-export default class Product {
+export interface IProduct {
+    id: number;
+    name: string;
+    description?: string;
+    price: number;
+    commissionPercent: number;
+}
+
+class Product implements IProduct {
     id: number;
     name: string;
     description?: string;
@@ -20,12 +28,14 @@ export default class Product {
     }
 }
 
-export const createProduct = (
-    id: number,
-    name: string,
-    price: number,
-    commissionPercent: number,
-    description?: string
-): Product => {
-    return new Product(id, name, price, commissionPercent, description);
-};
+export class ProductFactory {
+    static createProduct(
+        id: number,
+        name: string,
+        price: number,
+        commissionPercent: number,
+        description?: string
+    ): IProduct {
+        return new Product(id, name, price, commissionPercent, description);
+    }
+}

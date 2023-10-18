@@ -1,55 +1,104 @@
-import Client from "./client";
-import Seller from "./seller";
-import Product from "./product";
+import { IClient } from "./client";
+import { ISeller } from "./seller";
+import { IProduct } from "./product";
 
-class SaleItem {
+export interface ISaleItem {
     id: number;
-    product: Product;
+    product: IProduct;
     quantity: number;
 
-    constructor(id: number, product: Product, quantity: number) {
+    calculateTotalSaleItem: () => number;
+    calculateTotalSaleItemCommission: () => number;
+}
+
+class SaleItem implements ISaleItem {
+    id: number;
+    product: IProduct;
+    quantity: number;
+
+    constructor(id: number, product: IProduct, quantity: number) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
     }
+
+    calculateTotalSaleItem(): number {
+        return this.product.price * this.quantity;
+    }
+
+    calculateTotalSaleItemCommission(): number {
+        return Number(
+            (
+                (this.product.commissionPercent / 100) *
+                this.product.price *
+                this.quantity
+            ).toFixed(2)
+        );
+    }
 }
 
-export default class Sale {
-    id!: number;
-    nfe!: string;
-    client!: Client;
-    seller!: Seller;
-    items!: SaleItem[];
-    createdAt!: string;
-
-    constructor() {}
+export class SaleItemFactory {
+    static createSaleItem(
+        id: number,
+        product: IProduct,
+        quantity: number
+    ): ISaleItem {
+        return new SaleItem(id, product, quantity);
+    }
 }
 
-export const createSale = () => {
-    const sale = new Sale();
+export interface ISale {
+    id: number;
+    nfe: string;
+    client: IClient;
+    seller: ISeller;
+    items: Array<ISaleItem>;
+    createdAt: string;
 
-    return {
-        setBase(id: number, nfe: string, createdAt: string) {
-            sale.id = id;
-            sale.nfe = nfe;
-            sale.createdAt = createdAt;
-            sale.items = [];
-            return this;
-        },
-        setClient(id: number, name: string, email: string, phone: string) {
-            sale.client = new Client(id, name, email, phone);
-            return this;
-        },
-        setSeller(id: number, name: string, email: string, phone: string) {
-            sale.seller = new Seller(id, name, email, phone);
-            return this;
-        },
-        addSaleItem(id: number, product: Product, quantity: number) {
-            sale.items.push(new SaleItem(id, product, quantity));
-            return this;
-        },
-        make() {
-            return sale;
-        },
-    };
-};
+    calculateTotalSale: () => number;
+}
+
+class Sale implements ISale {
+    id: number;
+    nfe: string;
+    client: IClient;
+    seller: ISeller;
+    items: Array<ISaleItem>;
+    createdAt: string;
+
+    constructor(
+        id: number,
+        nfe: string,
+        client: IClient,
+        seller: ISeller,
+        items: SaleItem[],
+        createdAt: string
+    ) {
+        this.id = id;
+        this.nfe = nfe;
+        this.client = client;
+        this.seller = seller;
+        this.items = items;
+        this.createdAt = createdAt;
+    }
+
+    calculateTotalSale(): number {
+        return this.items.reduce(
+            (acc, item) => acc + item.product.price * item.quantity,
+            0
+        );
+    }
+}
+
+export class SaleFactory {
+    static createSale(
+        id: number,
+        nfe: string,
+        client: IClient,
+        seller: ISeller,
+        items: Array<ISaleItem>,
+        createdAt: string
+    ): ISale {
+        return new Sale(id, nfe, client, seller, items, createdAt);
+    }
+}

@@ -1,4 +1,11 @@
-export default class Client {
+export interface IClient {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+}
+
+class Client implements IClient {
     id: number;
     name: string;
     email: string;
@@ -10,4 +17,15 @@ export default class Client {
         this.email = email;
         this.phone = phone;
     }
+}
+
+export class ClientFactory {
+    static createClient = (
+        id: number,
+        name: string,
+        email: string,
+        phone: string
+    ): IClient => {
+        return new Client(id, name, email, phone);
+    };
 }

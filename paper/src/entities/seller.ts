@@ -1,4 +1,11 @@
-export default class Seller {
+export interface ISeller {
+    id: number;
+    name: string;
+    email: string;
+    phone: string;
+}
+
+class Seller implements ISeller {
     id: number;
     name: string;
     email: string;
@@ -10,4 +17,15 @@ export default class Seller {
         this.email = email;
         this.phone = phone;
     }
+}
+
+export class SellerFactory {
+    static createSeller = (
+        id: number,
+        name: string,
+        email: string,
+        phone: string
+    ): ISeller => {
+        return new Seller(id, name, email, phone);
+    };
 }
