@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 
-import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
+import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
 
 import { Menu as MenuIcon } from "@mui/icons-material";
 
@@ -35,14 +35,19 @@ export default function Header({ onMenuClick }: IProps) {
                         <MenuIcon />
                     </IconButton>
                 </Toolbar>
-                <Link href="/">
-                    <Image
-                        src="/amcom-logo.png"
-                        width={202}
-                        height={56}
-                        alt="Logo AMcom"
-                    />
-                </Link>
+                <Toolbar>
+                    <Link
+                        href="/"
+                        style={{
+                            textDecoration: "inherit",
+                            color: "inherit",
+                        }}
+                    >
+                        <Typography variant="h5" component="span">
+                            AMcom
+                        </Typography>
+                    </Link>
+                </Toolbar>
             </AppBar>
         </Box>
     );
