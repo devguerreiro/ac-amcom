@@ -14,12 +14,17 @@ import {
 
 // app services
 import { ISale } from "@/entities/sale";
-import { getSales } from "@/services/api/sale";
 
 // app components
 import SaleListSale from "./SaleListSale";
 
-export default function SaleList() {
+interface IProps {
+    sales: Array<ISale>;
+}
+
+export default function SaleList(props: IProps) {
+    const { sales } = props;
+
     const tableHeaders = [
         "Nota Fiscal",
         "Cliente",
@@ -36,7 +41,7 @@ export default function SaleList() {
     };
 
     const renderTableBody = () => {
-        return getSales().map((sale: ISale) => (
+        return sales.map((sale: ISale) => (
             <SaleListSale key={sale.nfe} sale={sale} />
         ));
     };

@@ -7,8 +7,8 @@ export interface ISaleItem {
     product: IProduct;
     quantity: number;
 
-    calculateTotalSaleItem: () => number;
-    calculateTotalSaleItemCommission: () => number;
+    calculateTotalPrice: () => number;
+    calculateTotalCommission: () => number;
 }
 
 class SaleItem implements ISaleItem {
@@ -22,18 +22,12 @@ class SaleItem implements ISaleItem {
         this.quantity = quantity;
     }
 
-    calculateTotalSaleItem(): number {
+    calculateTotalPrice(): number {
         return this.product.price * this.quantity;
     }
 
-    calculateTotalSaleItemCommission(): number {
-        return Number(
-            (
-                (this.product.commissionPercent / 100) *
-                this.product.price *
-                this.quantity
-            ).toFixed(2)
-        );
+    calculateTotalCommission(): number {
+        return this.product.calculateCommission() * this.quantity;
     }
 }
 
@@ -55,8 +49,8 @@ export interface ISale {
     items: Array<ISaleItem>;
     createdAt: string;
 
-    calculateTotalSale: () => number;
-    calculateTotalSaleCommission: () => number;
+    calculateTotalPrice: () => number;
+    calculateTotalCommission: () => number;
 
     totalItemsQuantity: number;
 }
@@ -85,16 +79,16 @@ class Sale implements ISale {
         this.createdAt = createdAt;
     }
 
-    calculateTotalSale(): number {
+    calculateTotalPrice(): number {
         return this.items.reduce(
-            (acc, item) => acc + item.product.price * item.quantity,
+            (acc, item) => acc + item.calculateTotalPrice(),
             0
         );
     }
 
-    calculateTotalSaleCommission(): number {
+    calculateTotalCommission(): number {
         return this.items.reduce(
-            (acc, item) => acc + item.calculateTotalSaleItemCommission(),
+            (acc, item) => acc + item.calculateTotalCommission(),
             0
         );
     }

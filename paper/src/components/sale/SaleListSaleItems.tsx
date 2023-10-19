@@ -11,6 +11,7 @@ import {
 
 // app services
 import { ISale } from "@/entities/sale";
+import { convertToBRL, convertToPercentage } from "@/utils";
 
 interface Props {
     sale: ISale;
@@ -40,13 +41,23 @@ export default function SaleListSaleItems(props: Props) {
             <>
                 {sale.items.map((item) => (
                     <TableRow key={item.id}>
-                        <TableCell>{item.product.name}</TableCell>
-                        <TableCell>{item.quantity}</TableCell>
-                        <TableCell>{item.product.price}</TableCell>
-                        <TableCell>{item.calculateTotalSaleItem()}</TableCell>
-                        <TableCell>{item.product.commissionPercent}</TableCell>
                         <TableCell>
-                            {item.calculateTotalSaleItemCommission()}
+                            {item.product.code} - {item.product.description}
+                        </TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>
+                            {convertToBRL(item.product.price)}
+                        </TableCell>
+                        <TableCell>
+                            {convertToBRL(item.calculateTotalPrice())}
+                        </TableCell>
+                        <TableCell>
+                            {convertToPercentage(
+                                item.product.commissionPercent
+                            )}
+                        </TableCell>
+                        <TableCell>
+                            {convertToBRL(item.calculateTotalCommission())}
                         </TableCell>
                     </TableRow>
                 ))}
@@ -64,9 +75,13 @@ export default function SaleListSaleItems(props: Props) {
                     <TableCell>Total da Venda</TableCell>
                     <TableCell>{sale.totalItemsQuantity}</TableCell>
                     <TableCell></TableCell>
-                    <TableCell>{sale.calculateTotalSale()}</TableCell>
+                    <TableCell>
+                        {convertToBRL(sale.calculateTotalPrice())}
+                    </TableCell>
                     <TableCell></TableCell>
-                    <TableCell>{sale.calculateTotalSaleCommission()}</TableCell>
+                    <TableCell>
+                        {convertToBRL(sale.calculateTotalCommission())}
+                    </TableCell>
                 </TableRow>
             </>
         );

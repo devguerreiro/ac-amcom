@@ -12,6 +12,7 @@ import {
 
 // app services
 import { ISale } from "@/entities/sale";
+import { convertToBRDate, convertToBRL } from "@/utils";
 
 // app components
 import SaleListSaleItems from "./SaleListSaleItems";
@@ -55,8 +56,12 @@ export default function SaleListSale(props: Props) {
                 <TableCell>{sale.nfe}</TableCell>
                 <TableCell>{sale.client.name}</TableCell>
                 <TableCell>{sale.seller.name}</TableCell>
-                <TableCell>{sale.createdAt}</TableCell>
-                <TableCell>{sale.calculateTotalSale()}</TableCell>
+                <TableCell>
+                    {convertToBRDate(new Date(sale.createdAt))}
+                </TableCell>
+                <TableCell>
+                    {convertToBRL(sale.calculateTotalPrice())}
+                </TableCell>
                 <TableCell>{renderOptions()}</TableCell>
             </TableRow>
             {/* expanded */}

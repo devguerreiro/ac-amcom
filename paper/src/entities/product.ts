@@ -1,41 +1,47 @@
 export interface IProduct {
     id: number;
-    name: string;
-    description?: string;
+    code: string;
+    description: string;
     price: number;
     commissionPercent: number;
+
+    calculateCommission: () => number;
 }
 
 class Product implements IProduct {
     id: number;
-    name: string;
-    description?: string;
+    code: string;
+    description: string;
     price: number;
     commissionPercent: number;
 
     constructor(
         id: number,
-        name: string,
+        code: string,
+        description: string,
         price: number,
-        commissionPercent: number,
-        description?: string
+        commissionPercent: number
     ) {
         this.id = id;
-        this.name = name;
+        this.code = code;
+        this.description = description;
         this.price = price;
         this.commissionPercent = commissionPercent;
-        this.description = description;
+    }
+
+    calculateCommission() {
+        return this.price * (this.commissionPercent / 100);
     }
 }
 
 export class ProductFactory {
     static createProduct(
         id: number,
-        name: string,
+        code: string,
+        description: string,
         price: number,
-        commissionPercent: number,
-        description?: string
+        commissionPercent: number
     ): IProduct {
-        return new Product(id, name, price, commissionPercent, description);
+        return new Product(id, code, description, price, commissionPercent);
     }
 }
