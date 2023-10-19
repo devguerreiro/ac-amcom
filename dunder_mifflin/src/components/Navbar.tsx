@@ -20,7 +20,9 @@ interface IProps {
     onClose: () => void;
 }
 
-export default function Navbar({ isOpen, onClose }: IProps) {
+export default function Navbar(props: IProps) {
+    const { isOpen, onClose } = props;
+
     const router = useRouter();
 
     return (

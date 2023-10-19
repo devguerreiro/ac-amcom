@@ -11,7 +11,9 @@ interface ILayoutProps {
     children: React.ReactNode;
 }
 
-export default function Layout({ children }: ILayoutProps) {
+export default function Layout(props: ILayoutProps) {
+    const { children } = props;
+
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
     const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);

@@ -11,7 +11,9 @@ interface IProps {
 
 export const HEIGHT = 87;
 
-export default function Header({ onMenuClick }: IProps) {
+export default function Header(props: IProps) {
+    const { onMenuClick } = props;
+
     return (
         <Box>
             <AppBar
