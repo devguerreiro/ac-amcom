@@ -25,8 +25,7 @@ export async function getStaticProps(): Promise<{ props: IStaticProps }> {
         props = {
             data,
         };
-    } catch (err) {
-        console.log(err);
+    } catch (e) {
         props = {
             data: null,
             error: "Não foi possível obter as vendas",
