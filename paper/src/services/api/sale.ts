@@ -24,12 +24,17 @@ export const getSales = () => {
                 ProductFactory.createProduct(1, "Mouse Gamer", 129.9, 9),
                 5
             );
+            const saleItem2 = SaleItemFactory.createSaleItem(
+                2,
+                ProductFactory.createProduct(2, "Monitor", 1349.9, 5),
+                5
+            );
             return SaleFactory.createSale(
                 1,
                 "00001005",
                 client,
                 seller,
-                [saleItem],
+                [saleItem, saleItem2],
                 "18/10/2023 - 04:22"
             );
         });

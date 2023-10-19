@@ -56,6 +56,9 @@ export interface ISale {
     createdAt: string;
 
     calculateTotalSale: () => number;
+    calculateTotalSaleCommission: () => number;
+
+    totalItemsQuantity: number;
 }
 
 class Sale implements ISale {
@@ -87,6 +90,17 @@ class Sale implements ISale {
             (acc, item) => acc + item.product.price * item.quantity,
             0
         );
+    }
+
+    calculateTotalSaleCommission(): number {
+        return this.items.reduce(
+            (acc, item) => acc + item.calculateTotalSaleItemCommission(),
+            0
+        );
+    }
+
+    get totalItemsQuantity(): number {
+        return this.items.reduce((acc, item) => acc + item.quantity, 0);
     }
 }
 

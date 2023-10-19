@@ -36,27 +36,59 @@ export default function SaleListSaleItems(props: Props) {
     };
 
     const renderTableBody = () => {
-        return sale.items.map((item) => (
-            <TableRow key={item.id}>
-                <TableCell>{item.product.name}</TableCell>
-                <TableCell>{item.quantity}</TableCell>
-                <TableCell>{item.product.price}</TableCell>
-                <TableCell>{item.calculateTotalSaleItem()}</TableCell>
-                <TableCell>{item.product.commissionPercent}</TableCell>
-                <TableCell>{item.calculateTotalSaleItemCommission()}</TableCell>
-            </TableRow>
-        ));
+        return (
+            <>
+                {sale.items.map((item) => (
+                    <TableRow key={item.id}>
+                        <TableCell>{item.product.name}</TableCell>
+                        <TableCell>{item.quantity}</TableCell>
+                        <TableCell>{item.product.price}</TableCell>
+                        <TableCell>{item.calculateTotalSaleItem()}</TableCell>
+                        <TableCell>{item.product.commissionPercent}</TableCell>
+                        <TableCell>
+                            {item.calculateTotalSaleItemCommission()}
+                        </TableCell>
+                    </TableRow>
+                ))}
+                {/* total */}
+                <TableRow
+                    sx={{
+                        color: "primary.main",
+                        fontWeight: "bold",
+                        "& .MuiTableCell-root": {
+                            color: "inherit",
+                            fontWeight: "inherit",
+                        },
+                    }}
+                >
+                    <TableCell>Total da Venda</TableCell>
+                    <TableCell>{sale.totalItemsQuantity}</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>{sale.calculateTotalSale()}</TableCell>
+                    <TableCell></TableCell>
+                    <TableCell>{sale.calculateTotalSaleCommission()}</TableCell>
+                </TableRow>
+            </>
+        );
     };
 
     return (
         <TableRow>
             <TableCell
-                style={{ paddingBottom: 0, paddingTop: 0 }}
+                sx={{ paddingBottom: 0, paddingTop: 0 }}
                 colSpan={tableHeaders.length}
             >
                 <Collapse in={isExpanded} timeout="auto" unmountOnExit>
-                    <Box>
-                        <Table aria-label="itens da venda">
+                    <Box sx={{ paddingBottom: 2, paddingTop: 2 }}>
+                        <Table
+                            aria-label="itens da venda"
+                            size="small"
+                            sx={{
+                                "& .MuiTableCell-root": {
+                                    border: 0,
+                                },
+                            }}
+                        >
                             <TableHead>
                                 <TableRow>{renderTableHeader()}</TableRow>
                             </TableHead>

@@ -13,7 +13,7 @@ export default function SalesPage() {
             <Head>
                 <title>Vendas Realizadas</title>
             </Head>
-            <Box my={6} mx={2}>
+            <Box mt={6} mx={2}>
                 <Box display="flex" justifyContent="space-between">
                     <Typography variant="h5" component="h1">
                         Vendas Realizadas

@@ -1,3 +1,6 @@
+// framework
+import React from "react";
+
 // lib components
 import {
     Paper,
@@ -39,7 +42,12 @@ export default function SaleList() {
     };
 
     return (
-        <TableContainer component={Paper}>
+        <TableContainer
+            component={Paper}
+            sx={{
+                maxHeight: 475,
+            }}
+        >
             <Table aria-label="Tabela das vendas realizadas">
                 <TableHead>
                     <TableRow>{renderTableHeader()}</TableRow>
