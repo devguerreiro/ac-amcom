@@ -1,5 +1,7 @@
+// framework
 import type { AppProps } from "next/app";
 
+// app components
 import "@/styles/global.sass";
 
 import Layout from "@/layouts/default";

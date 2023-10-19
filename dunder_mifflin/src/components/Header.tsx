@@ -1,7 +1,9 @@
+// framework
 import Link from "next/link";
 import Image from "next/image";
 
-import { AppBar, Box, IconButton, Toolbar, Typography } from "@mui/material";
+// lib components
+import { AppBar, Box, IconButton, Toolbar } from "@mui/material";
 
 import { Menu as MenuIcon } from "@mui/icons-material";
 

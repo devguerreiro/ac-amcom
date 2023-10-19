@@ -1,3 +1,7 @@
+// framework
+import { useRouter } from "next/router";
+
+// lib components
 import {
     ListItemIcon,
     ListItemText,
@@ -12,8 +16,8 @@ import {
     ChevronRight as ChevronRightIcon,
 } from "@mui/icons-material";
 
+// app components
 import { HEIGHT } from "./Header";
-import { useRouter } from "next/router";
 
 interface IProps {
     isOpen: boolean;
