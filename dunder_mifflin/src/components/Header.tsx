@@ -43,9 +43,12 @@ export default function Header({ onMenuClick }: IProps) {
                             color: "inherit",
                         }}
                     >
-                        <Typography variant="h5" component="span">
-                            AMcom
-                        </Typography>
+                        <Image
+                            src="/logo.png"
+                            width={150}
+                            height={50}
+                            alt="Dunder Mufflin Logo"
+                        />
                     </Link>
                 </Toolbar>
             </AppBar>

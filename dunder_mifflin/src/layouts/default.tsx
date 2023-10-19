@@ -24,6 +24,7 @@ export default function Layout({ children }: ILayoutProps) {
                     name="viewport"
                     content="initial-scale=1, width=device-width"
                 />
+                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
             </Head>
             <CssBaseline />
             <Header onMenuClick={toggleNavbar} />
