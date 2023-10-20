@@ -21,7 +21,9 @@ export default function SalesNewPage() {
             </Head>
             <Box mt={6} mx={2}>
                 <form
-                    onSubmit={() => {}}
+                    onSubmit={(e) => {
+                        e.preventDefault();
+                    }}
                     style={{
                         display: "flex",
                     }}
