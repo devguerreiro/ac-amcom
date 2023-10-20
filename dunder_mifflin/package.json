@@ -16,12 +16,14 @@
     "@mui/icons-material": "^5.14.14",
     "@mui/material": "^5.14.14",
     "axios": "^1.5.1",
+    "i18next": "^23.6.0",
     "next": "13.5.5",
     "react": "^18",
     "react-dom": "^18",
     "react-hook-form": "^7.47.0",
     "sass": "^1.69.3",
-    "zod": "^3.22.4"
+    "zod": "^3.22.4",
+    "zod-i18n-map": "^2.20.0"
   },
   "devDependencies": {
     "@types/node": "^20",

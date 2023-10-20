@@ -8,7 +8,7 @@ export interface IProduct {
     calculateCommission: () => number;
 }
 
-class Product implements IProduct {
+export default class Product implements IProduct {
     id: number;
     code: string;
     description: string;
