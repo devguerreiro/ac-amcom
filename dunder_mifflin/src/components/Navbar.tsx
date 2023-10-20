@@ -1,5 +1,5 @@
 // framework
-import { useRouter } from "next/router";
+import Link from "next/link";
 
 // lib components
 import {
@@ -27,8 +27,6 @@ interface IProps {
 export default function Navbar(props: IProps) {
     const { isOpen, onClose } = props;
 
-    const router = useRouter();
-
     return (
         <SwipeableDrawer
             sx={{
@@ -44,13 +42,21 @@ export default function Navbar(props: IProps) {
         >
             <nav>
                 <MenuList onClick={onClose}>
-                    <MenuItem onClick={() => router.push("/sales")}>
-                        <ListItemIcon>
-                            <PointOfSaleIcon />
-                        </ListItemIcon>
-                        <ListItemText>Vendas</ListItemText>
-                        <ChevronRightIcon />
-                    </MenuItem>
+                    <Link
+                        href="/sales"
+                        style={{
+                            textDecoration: "inherit",
+                            color: "inherit",
+                        }}
+                    >
+                        <MenuItem>
+                            <ListItemIcon>
+                                <PointOfSaleIcon />
+                            </ListItemIcon>
+                            <ListItemText>Vendas</ListItemText>
+                            <ChevronRightIcon />
+                        </MenuItem>
+                    </Link>
                     <MenuItem>
                         <ListItemIcon>
                             <CalculateIcon />

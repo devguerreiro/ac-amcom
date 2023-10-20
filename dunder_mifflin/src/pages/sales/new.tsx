@@ -7,8 +7,11 @@ import { Box, Divider } from "@mui/material";
 // app components
 import SaleNewAddProduct from "@/components/sale/SaleNewAddProduct";
 import SaleNewSaleData from "@/components/sale/SaleNewSaleData";
+import { useRouter } from "next/router";
 
 export default function SalesNewPage() {
+    const router = useRouter();
+
     const totalPrice = 7.5;
 
     return (
@@ -23,10 +26,7 @@ export default function SalesNewPage() {
                         display: "flex",
                     }}
                 >
-                    <SaleNewAddProduct
-                        sx={{ flexGrow: 1 }}
-                        onAdd={() => {}}
-                    />
+                    <SaleNewAddProduct sx={{ flexGrow: 1 }} onAdd={() => {}} />
                     <Divider
                         variant="middle"
                         orientation="vertical"
@@ -38,7 +38,7 @@ export default function SalesNewPage() {
                     <SaleNewSaleData
                         totalPrice={totalPrice}
                         onFinish={() => {}}
-                        onCancel={() => {}}
+                        onCancel={() => router.back()}
                     />
                 </form>
             </Box>
