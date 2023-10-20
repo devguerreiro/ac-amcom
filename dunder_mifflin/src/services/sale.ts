@@ -1,7 +1,7 @@
-import { ClientFactory } from "@/entities/client";
-import { ProductFactory } from "@/entities/product";
-import { ISale, SaleFactory, SaleItemFactory } from "@/entities/sale";
-import { SellerFactory } from "@/entities/seller";
+import { ClientFactory } from "@/domain/entities/client";
+import { ProductFactory } from "@/domain/entities/product";
+import { ISale, SaleFactory, SaleItemFactory } from "@/domain/entities/sale";
+import { SellerFactory } from "@/domain/entities/seller";
 
 export default class SaleService {
     static fromAPIList(data: any): Array<ISale> {

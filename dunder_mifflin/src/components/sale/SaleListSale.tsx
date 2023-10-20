@@ -11,7 +11,7 @@ import {
 } from "@mui/icons-material";
 
 // app services
-import { ISale } from "@/entities/sale";
+import { ISale } from "@/domain/entities/sale";
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 // app components

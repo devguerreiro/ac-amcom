@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 
 // app services
-import { ISale } from "@/entities/sale";
+import { ISale } from "@/domain/entities/sale";
 import { convertToBRL, convertToPercentage } from "@/utils";
 
 interface Props {

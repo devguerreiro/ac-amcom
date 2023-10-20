@@ -13,7 +13,7 @@ import {
 } from "@mui/material";
 
 // app services
-import { ISale } from "@/entities/sale";
+import { ISale } from "@/domain/entities/sale";
 
 // app components
 import SaleListSale from "./SaleListSale";
