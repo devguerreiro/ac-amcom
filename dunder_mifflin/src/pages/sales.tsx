@@ -1,5 +1,6 @@
 // framework
 import Head from "next/head";
+import Link from "next/link";
 
 // lib components
 import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
@@ -8,7 +9,7 @@ import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
 import SaleList from "@/components/sale/SaleList";
 
 // app services
-import { ISale } from "@/entities/sale";
+import { ISale } from "@/domain/entities/sale";
 import SaleAPI from "@/services/api/sale";
 import SaleService from "@/services/sale";
 
@@ -21,7 +22,7 @@ export async function getStaticProps(): Promise<{ props: IStaticProps }> {
     let props: IStaticProps;
 
     try {
-        const data = await SaleAPI.getSales();
+        const data = await SaleAPI.fetchSales();
         props = {
             data,
         };
@@ -74,7 +75,11 @@ export default function SalesPage(props: IProps) {
                     <Typography variant="h5" component="h1">
                         Vendas Realizadas
                     </Typography>
-                    <Button variant="contained">Inserir nova Venda</Button>
+                    <Link href="/sales/new">
+                        <Button variant="contained" type="button">
+                            Inserir nova Venda
+                        </Button>
+                    </Link>
                 </Box>
                 <Box mt={6}>
                     <SaleList sales={sales} />
