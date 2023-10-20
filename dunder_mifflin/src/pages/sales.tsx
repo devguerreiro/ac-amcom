@@ -43,34 +43,26 @@ interface IProps extends IStaticProps {}
 export default function SalesPage(props: IProps) {
     const { data, error } = props;
 
-    const renderHead = () => {
-        return (
-            <Head>
-                <title>Vendas Realizadas</title>
-            </Head>
-        );
-    };
+    let sales: Array<ISale> = [];
 
-    if (error) {
-        return (
-            <>
-                {renderHead()}
-                <Box mt={4}>
-                    <Alert severity="error">
-                        <AlertTitle>Falha na solicitação</AlertTitle>
-                        {error}
-                    </Alert>
-                </Box>
-            </>
-        );
+    if (!error) {
+        sales = SaleService.fromAPIList(data);
     }
-
-    const sales: Array<ISale> = SaleService.fromAPIList(data);
 
     return (
         <>
-            {renderHead()}
+            <Head>
+                <title>Vendas Realizadas</title>
+            </Head>
             <Box mt={6} mx={2}>
+                {error && (
+                    <Box mb={4}>
+                        <Alert severity="error">
+                            <AlertTitle>Falha na solicitação</AlertTitle>
+                            {error}
+                        </Alert>
+                    </Box>
+                )}
                 <Box display="flex" justifyContent="space-between">
                     <Typography variant="h5" component="h1">
                         Vendas Realizadas
