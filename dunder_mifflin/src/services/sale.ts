@@ -1,10 +1,10 @@
 import { ClientFactory } from "@/domain/entities/client";
 import { ProductFactory } from "@/domain/entities/product";
-import { ISale, SaleFactory, SaleItemFactory } from "@/domain/entities/sale";
+import { Sale, SaleFactory, SaleItemFactory } from "@/domain/entities/sale";
 import { SellerFactory } from "@/domain/entities/seller";
 
 export default class SaleService {
-    static fromAPIList(data: any): Array<ISale> {
+    static fromAPIList(data: any): Array<Sale> {
         return data.map((sale: any) => {
             const client = ClientFactory.createClient(
                 sale.client.id,

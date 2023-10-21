@@ -13,13 +13,13 @@ import {
 } from "@mui/material";
 
 // app services
-import { ISale } from "@/domain/entities/sale";
+import { Sale } from "@/domain/entities/sale";
 
 // app components
 import SaleListSale from "./SaleListSale";
 
 interface IProps {
-    sales: Array<ISale>;
+    sales: Array<Sale>;
 }
 
 export default function SaleList(props: IProps) {
@@ -41,7 +41,7 @@ export default function SaleList(props: IProps) {
     };
 
     const renderTableBody = () => {
-        return sales.map((sale: ISale) => (
+        return sales.map((sale: Sale) => (
             <SaleListSale key={sale.nfe} sale={sale} />
         ));
     };

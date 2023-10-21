@@ -9,9 +9,10 @@ import { Alert, AlertTitle, Box, Button, Typography } from "@mui/material";
 import SaleList from "@/components/sale/SaleList";
 
 // app services
-import { ISale } from "@/domain/entities/sale";
 import SaleAPI from "@/services/api/sale";
 import SaleService from "@/services/sale";
+
+import { Sale } from "@/domain/entities/sale";
 
 interface IStaticProps {
     data: any;
@@ -43,7 +44,7 @@ interface IProps extends IStaticProps {}
 export default function SalesPage(props: IProps) {
     const { data, error } = props;
 
-    let sales: Array<ISale> = [];
+    let sales: Array<Sale> = [];
 
     if (!error) {
         sales = SaleService.fromAPIList(data);

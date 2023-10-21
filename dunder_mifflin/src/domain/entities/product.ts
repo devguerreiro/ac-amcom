@@ -1,14 +1,4 @@
-export interface IProduct {
-    id: number;
-    code: string;
-    description: string;
-    price: number;
-    commissionPercent: number;
-
-    calculateCommission: () => number;
-}
-
-export default class Product implements IProduct {
+export default class Product {
     id: number;
     code: string;
     description: string;
@@ -32,6 +22,14 @@ export default class Product implements IProduct {
     calculateCommission() {
         return this.price * (this.commissionPercent / 100);
     }
+
+    get label() {
+        return `${this.code} - ${this.description}`;
+    }
+
+    equal(obj: Product) {
+        return this.id === obj.id;
+    }
 }
 
 export class ProductFactory {
@@ -41,7 +39,7 @@ export class ProductFactory {
         description: string,
         price: number,
         commissionPercent: number
-    ): IProduct {
+    ): Product {
         return new Product(id, code, description, price, commissionPercent);
     }
 }

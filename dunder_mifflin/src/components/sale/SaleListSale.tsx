@@ -11,14 +11,14 @@ import {
 } from "@mui/icons-material";
 
 // app services
-import { ISale } from "@/domain/entities/sale";
+import { Sale } from "@/domain/entities/sale";
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 // app components
 import SaleListSaleItems from "./SaleListSaleItems";
 
 interface Props {
-    sale: ISale;
+    sale: Sale;
 }
 
 export default function SaleListSale(props: Props) {

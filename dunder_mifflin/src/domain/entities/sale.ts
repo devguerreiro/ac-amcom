@@ -1,22 +1,13 @@
-import { IClient } from "./client";
-import { ISeller } from "./seller";
-import { IProduct } from "./product";
+import Client from "./client";
+import Seller from "./seller";
+import Product from "./product";
 
-export interface ISaleItem {
+export class SaleItem {
     id: number;
-    product: IProduct;
+    product: Product;
     quantity: number;
 
-    calculateTotalPrice: () => number;
-    calculateTotalCommission: () => number;
-}
-
-class SaleItem implements ISaleItem {
-    id: number;
-    product: IProduct;
-    quantity: number;
-
-    constructor(id: number, product: IProduct, quantity: number) {
+    constructor(id: number, product: Product, quantity: number) {
         this.id = id;
         this.product = product;
         this.quantity = quantity;
@@ -34,40 +25,26 @@ class SaleItem implements ISaleItem {
 export class SaleItemFactory {
     static createSaleItem(
         id: number,
-        product: IProduct,
+        product: Product,
         quantity: number
-    ): ISaleItem {
+    ): SaleItem {
         return new SaleItem(id, product, quantity);
     }
 }
 
-export interface ISale {
+export class Sale {
     id: number;
     nfe: string;
-    client: IClient;
-    seller: ISeller;
-    items: Array<ISaleItem>;
-    createdAt: string;
-
-    calculateTotalPrice: () => number;
-    calculateTotalCommission: () => number;
-
-    totalItemsQuantity: number;
-}
-
-class Sale implements ISale {
-    id: number;
-    nfe: string;
-    client: IClient;
-    seller: ISeller;
-    items: Array<ISaleItem>;
+    client: Client;
+    seller: Seller;
+    items: Array<SaleItem>;
     createdAt: string;
 
     constructor(
         id: number,
         nfe: string,
-        client: IClient,
-        seller: ISeller,
+        client: Client,
+        seller: Seller,
         items: SaleItem[],
         createdAt: string
     ) {
@@ -102,11 +79,11 @@ export class SaleFactory {
     static createSale(
         id: number,
         nfe: string,
-        client: IClient,
-        seller: ISeller,
-        items: Array<ISaleItem>,
+        client: Client,
+        seller: Seller,
+        items: Array<SaleItem>,
         createdAt: string
-    ): ISale {
+    ): Sale {
         return new Sale(id, nfe, client, seller, items, createdAt);
     }
 }

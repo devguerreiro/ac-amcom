@@ -1,4 +1,5 @@
 // framework
+import { useRouter } from "next/router";
 import Head from "next/head";
 
 // lib components
@@ -7,7 +8,6 @@ import { Box, Divider } from "@mui/material";
 // app components
 import SaleNewAddProduct from "@/components/sale/SaleNewAddProduct";
 import SaleNewSaleData from "@/components/sale/SaleNewSaleData";
-import { useRouter } from "next/router";
 
 export default function SalesNewPage() {
     const router = useRouter();

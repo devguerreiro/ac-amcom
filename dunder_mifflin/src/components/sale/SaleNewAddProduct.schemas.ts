@@ -2,7 +2,7 @@ import z from "@/config/zod";
 
 import Product from "@/domain/entities/product";
 
-export const AddProductSchema = z
+const AddProductSchema = z
     .object({
         product: z.instanceof(Product, {
             message: "Produto inválido",
@@ -12,3 +12,5 @@ export const AddProductSchema = z
     .required();
 
 export type TAddProductSchema = z.infer<typeof AddProductSchema>;
+
+export default AddProductSchema;

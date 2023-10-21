@@ -12,8 +12,8 @@ import {
 } from "@mui/material";
 
 // app services
-import { ISeller } from "@/domain/entities/seller";
-import { IClient } from "@/domain/entities/client";
+import Seller from "@/domain/entities/seller";
+import Client from "@/domain/entities/client";
 
 import { convertToBRDate, convertToBRL } from "@/utils";
 
@@ -26,11 +26,11 @@ interface IProps {
 export default function SaleNewSaleData(props: IProps) {
     const { totalPrice, onFinish, onCancel } = props;
 
-    const sellers: Array<ISeller> = [];
-    const clients: Array<IClient> = [];
+    const sellers: Array<Seller> = [];
+    const clients: Array<Client> = [];
 
     const renderSellers = () => {
-        return sellers.map((seller: ISeller) => (
+        return sellers.map((seller: Seller) => (
             <MenuItem key={seller.id} value={seller.id}>
                 {seller.name}
             </MenuItem>
@@ -38,7 +38,7 @@ export default function SaleNewSaleData(props: IProps) {
     };
 
     const renderClients = () => {
-        return clients.map((client: IClient) => (
+        return clients.map((client: Client) => (
             <MenuItem key={client.id} value={client.id}>
                 {client.name}
             </MenuItem>

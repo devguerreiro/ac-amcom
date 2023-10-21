@@ -1,11 +1,4 @@
-export interface ISeller {
-    id: number;
-    name: string;
-    email: string;
-    phone: string;
-}
-
-class Seller implements ISeller {
+export default class Seller {
     id: number;
     name: string;
     email: string;
@@ -25,7 +18,7 @@ export class SellerFactory {
         name: string,
         email: string,
         phone: string
-    ): ISeller => {
+    ): Seller => {
         return new Seller(id, name, email, phone);
     };
 }
