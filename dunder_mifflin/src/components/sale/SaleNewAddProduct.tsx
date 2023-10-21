@@ -1,7 +1,7 @@
 // framework
-import { ChangeEvent } from "react";
+import React from "react";
 
-import { useForm } from "react-hook-form";
+import { useController, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // lib components
@@ -32,7 +32,7 @@ interface IProps {
     onAdd: () => void;
 }
 
-export default function SaleNewProducts(props: IProps) {
+export default function SaleNewAddProduct(props: IProps) {
     const { sx, onAdd } = props;
 
     const { products, isSearching, searchProducts } = useFetchProducts();
@@ -40,23 +40,28 @@ export default function SaleNewProducts(props: IProps) {
     const {
         register,
         handleSubmit,
-        setValue,
+        reset,
+        control,
         formState: { errors, isValid },
     } = useForm<TAddProductSchema>({
         resolver: zodResolver(AddProductSchema),
+        defaultValues: {
+            // @ts-ignore
+            product: null,
+            quantity: undefined,
+        },
     });
+
+    const { field: productField } = useController({ name: "product", control });
 
     const addProduct = (data: TAddProductSchema) => {
         onAdd();
+        reset();
     };
 
-    const debouncedProductSearch = debounce(
-        async (e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-            const query = e.target.value;
-            await searchProducts(query);
-        },
-        500
-    );
+    const debouncedProductSearch = debounce(async (query: string) => {
+        await searchProducts(query);
+    }, 500);
 
     return (
         <Box sx={sx}>
@@ -68,7 +73,6 @@ export default function SaleNewProducts(props: IProps) {
                     sx={{
                         flexGrow: 1,
                     }}
-                    {...register("product")}
                     autoHighlight
                     clearOnEscape
                     filterSelectedOptions
@@ -90,15 +94,15 @@ export default function SaleNewProducts(props: IProps) {
                             placeholder="Digite o código ou nome do produto"
                             size="small"
                             required
-                            onChange={debouncedProductSearch}
+                            onChange={(e) =>
+                                debouncedProductSearch(e.target.value)
+                            }
                         />
                     )}
                     onChange={(_, value) => {
-                        // @ts-ignore
-                        setValue("product", value, {
-                            shouldValidate: true,
-                        });
+                        productField.onChange(value);
                     }}
+                    value={productField.value}
                 />
                 <TextField
                     sx={{
