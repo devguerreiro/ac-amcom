@@ -1,12 +1,14 @@
 // framework
 import React from "react";
 
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+
 // lib components
 import {
+    Autocomplete,
     Box,
     Button,
-    MenuItem,
-    Paper,
     TextField,
     Typography,
 } from "@mui/material";
@@ -15,35 +17,29 @@ import {
 import Seller from "@/domain/entities/seller";
 import Client from "@/domain/entities/client";
 
+import SaleDataSchema, { TSaleDataSchema } from "./SaleNewSaleData.schemas";
+
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 interface IProps {
     totalPrice: number;
+    sellers: Array<Seller>;
+    clients: Array<Client>;
     onFinish: () => void;
     onCancel: () => void;
 }
 
 export default function SaleNewSaleData(props: IProps) {
-    const { totalPrice, onFinish, onCancel } = props;
+    const { totalPrice, sellers, clients, onFinish, onCancel } = props;
 
-    const sellers: Array<Seller> = [];
-    const clients: Array<Client> = [];
-
-    const renderSellers = () => {
-        return sellers.map((seller: Seller) => (
-            <MenuItem key={seller.id} value={seller.id}>
-                {seller.name}
-            </MenuItem>
-        ));
-    };
-
-    const renderClients = () => {
-        return clients.map((client: Client) => (
-            <MenuItem key={client.id} value={client.id}>
-                {client.name}
-            </MenuItem>
-        ));
-    };
+    const {
+        register,
+        handleSubmit,
+        setValue,
+        formState: { errors, isValid },
+    } = useForm<TSaleDataSchema>({
+        resolver: zodResolver(SaleDataSchema),
+    });
 
     return (
         <Box display="flex" flexDirection="column">
@@ -52,7 +48,6 @@ export default function SaleNewSaleData(props: IProps) {
             </Typography>
             <Box display="flex" flexDirection="column" flexGrow={1}>
                 <TextField
-                    id="currentDate"
                     label="Data e Hora da Venda"
                     inputProps={{
                         readOnly: true,
@@ -60,24 +55,64 @@ export default function SaleNewSaleData(props: IProps) {
                     defaultValue={convertToBRDate(new Date())}
                     margin="normal"
                 />
-                <TextField
-                    id="seller"
-                    label="Escolha um vendedor"
-                    select
-                    placeholder="Selecione o nome"
-                    margin="normal"
-                >
-                    {renderSellers()}
-                </TextField>
-                <TextField
-                    id="client"
-                    label="Escolha um cliente"
-                    select
-                    placeholder="Selecione o nome"
-                    margin="normal"
-                >
-                    {renderClients()}
-                </TextField>
+                <Autocomplete
+                    {...register("seller")}
+                    autoHighlight
+                    clearOnEscape
+                    filterSelectedOptions
+                    options={sellers}
+                    getOptionLabel={(option: Seller) => option.name}
+                    isOptionEqualToValue={(option: Seller, value: Seller) =>
+                        option.equal(value)
+                    }
+                    noOptionsText="Nenhum vendedor encontrado"
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            error={!!errors.seller}
+                            helperText={errors.seller?.message}
+                            label="Escolha um vendedor"
+                            placeholder="Selecione o nome"
+                            required
+                            margin="normal"
+                        />
+                    )}
+                    onChange={(_, value) => {
+                        // @ts-ignore
+                        setValue("seller", value && value.id, {
+                            shouldValidate: true,
+                        });
+                    }}
+                />
+                <Autocomplete
+                    {...register("client")}
+                    autoHighlight
+                    clearOnEscape
+                    filterSelectedOptions
+                    options={clients}
+                    getOptionLabel={(option: Client) => option.name}
+                    isOptionEqualToValue={(option: Client, value: Client) =>
+                        option.equal(value)
+                    }
+                    noOptionsText="Nenhum cliente encontrado"
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            error={!!errors.client}
+                            helperText={errors.client?.message}
+                            label="Escolha um cliente"
+                            placeholder="Selecione o nome"
+                            required
+                            margin="normal"
+                        />
+                    )}
+                    onChange={(_, value) => {
+                        // @ts-ignore
+                        setValue("client", value && value.id, {
+                            shouldValidate: true,
+                        });
+                    }}
+                />
             </Box>
             <Box mt={4} display="flex" justifyContent="space-between">
                 <Typography
@@ -105,7 +140,8 @@ export default function SaleNewSaleData(props: IProps) {
                     variant="contained"
                     type="submit"
                     size="large"
-                    onClick={onFinish}
+                    onClick={handleSubmit(onFinish)}
+                    disabled={!isValid}
                 >
                     Finalizar
                 </Button>

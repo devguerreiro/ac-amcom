@@ -10,6 +10,10 @@ export default class Seller {
         this.email = email;
         this.phone = phone;
     }
+
+    equal(obj: Seller): boolean {
+        return this.id === obj.id;
+    }
 }
 
 export class SellerFactory {

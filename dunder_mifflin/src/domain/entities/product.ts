@@ -19,15 +19,15 @@ export default class Product {
         this.commissionPercent = commissionPercent;
     }
 
-    calculateCommission() {
+    calculateCommission(): number {
         return this.price * (this.commissionPercent / 100);
     }
 
-    get label() {
+    get label(): string {
         return `${this.code} - ${this.description}`;
     }
 
-    equal(obj: Product) {
+    equal(obj: Product): boolean {
         return this.id === obj.id;
     }
 }

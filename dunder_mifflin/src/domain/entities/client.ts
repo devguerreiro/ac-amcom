@@ -10,6 +10,10 @@ export default class Client {
         this.email = email;
         this.phone = phone;
     }
+
+    equal(obj: Client): boolean {
+        return this.id === obj.id;
+    }
 }
 
 export class ClientFactory {
