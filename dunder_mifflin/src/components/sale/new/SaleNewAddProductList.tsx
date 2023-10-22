@@ -29,8 +29,6 @@ interface IProps {
 }
 
 export default memo(function SaleNewAddProductList(props: IProps) {
-    console.log("ADD PRODUCT LIST");
-
     const { saleItems, onSaveChange, onRemove } = props;
 
     const apiRef = useGridApiRef();

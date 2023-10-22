@@ -1,3 +1,4 @@
+// framework
 import { memo } from "react";
 
 // lib components
@@ -27,8 +28,6 @@ interface IProps {
 }
 
 export default memo(function SaleNewSaleData(props: IProps) {
-    console.log("SALE DATA");
-
     const { sx, totalPrice, sellers, clients, onCancel } = props;
 
     const {

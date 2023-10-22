@@ -39,12 +39,12 @@ export async function getStaticProps(): Promise<{ props: IStaticProps }> {
 interface IProps extends IStaticProps {}
 
 export default function SalesNewPage(props: IProps) {
-    console.log("NEW PAGE");
+    const { sellersData, clientsData } = props;
 
     const router = useRouter();
 
-    const { form, sellers, clients, totalPrice, finishSale } =
-        useNewSale(props);
+    const { form, sellers, clients, totalPrice, finishSale, onFormInvalid } =
+        useNewSale({ sellersData, clientsData, router });
 
     return (
         <>
@@ -52,7 +52,7 @@ export default function SalesNewPage(props: IProps) {
                 <title>Nova Venda</title>
             </Head>
             <FormProvider {...form}>
-                <form onSubmit={form.handleSubmit(finishSale)}>
+                <form onSubmit={form.handleSubmit(finishSale, onFormInvalid)}>
                     <Box mt={6} mx={2} display="flex" gap={6}>
                         <SaleNewAddProduct sx={sxSaleNewAddProduct} />
                         <Divider

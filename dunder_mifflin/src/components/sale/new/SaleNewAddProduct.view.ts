@@ -1,5 +1,5 @@
 // framework
-import { ChangeEvent, useCallback, useMemo } from "react";
+import { ChangeEvent, useCallback } from "react";
 
 import {
     FieldArrayWithId,
@@ -57,7 +57,9 @@ export default function useAddProduct() {
 
     const debouncedFetchOptions = debounce(
         async (e: ChangeEvent<HTMLInputElement>) => {
-            await searchProducts(e.target.value);
+            if (e.target.value) {
+                await searchProducts(e.target.value);
+            }
         },
         500
     );

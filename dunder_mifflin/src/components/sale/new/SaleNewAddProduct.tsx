@@ -1,3 +1,6 @@
+// framework
+import { memo } from "react";
+
 // lib components
 import {
     Autocomplete,
@@ -13,15 +16,12 @@ import useAddProduct from "@/components/sale/new/SaleNewAddProduct.view";
 
 // app components
 import SaleNewAddProductList from "./SaleNewAddProductList";
-import { memo } from "react";
 
 interface IProps {
     sx?: SxProps;
 }
 
 export default memo(function SaleNewAddProduct(props: IProps) {
-    console.log("ADD PRODUCT");
-
     const { sx } = props;
 
     const {

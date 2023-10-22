@@ -1,22 +1,27 @@
 // framework
-import { useMemo } from "react";
+import { NextRouter } from "next/router";
+import { useContext, useMemo } from "react";
 
-import { useForm } from "react-hook-form";
+import { FieldErrors, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 
 // app services
+import NewSaleSchema, { TNewSaleSchema } from "@/domain/schemas/sale";
+
 import SellerService from "@/services/seller";
 import ClientService from "@/services/client";
 
-import NewSaleSchema, { TNewSaleSchema } from "@/domain/schemas/sale";
+import SaleAPI from "@/services/api/sale";
+import { FeedbackContext } from "@/services/hooks/feedback";
 
 interface IProps {
     sellersData: any;
     clientsData: any;
+    router: NextRouter;
 }
 
 export default function useNewSale(props: IProps) {
-    const { sellersData, clientsData } = props;
+    const { sellersData, clientsData, router } = props;
 
     const form = useForm<TNewSaleSchema>({
         resolver: zodResolver(NewSaleSchema),
@@ -43,8 +48,24 @@ export default function useNewSale(props: IProps) {
         [clientsData]
     );
 
-    const finishSale = () => {
-        console.log("Finish!!!");
+    const { showFeedback } = useContext(FeedbackContext);
+
+    const finishSale = (data: TNewSaleSchema) => {
+        SaleAPI.addSale(data)
+            .then(() => {
+                showFeedback("Venda finalizada com sucesso!", "success");
+
+                router.push("/sales");
+            })
+            .catch((e: Error) => {
+                showFeedback(e.message);
+            });
+    };
+
+    const onFormInvalid = (errors: FieldErrors<TNewSaleSchema>) => {
+        if (errors.items?.message) {
+            showFeedback(errors.items?.message);
+        }
     };
 
     return {
@@ -53,5 +74,6 @@ export default function useNewSale(props: IProps) {
         sellers,
         clients,
         finishSale,
+        onFormInvalid,
     };
 }

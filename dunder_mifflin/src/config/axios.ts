@@ -1,4 +1,8 @@
-import axios from "axios";
+import axios, { AxiosError } from "axios";
+
+import BadRequestException from "@/exceptions/badRequest";
+import ServerException from "@/exceptions/server";
+import TimeoutException from "@/exceptions/timeout";
 
 const _axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,
@@ -9,8 +13,14 @@ _axios.interceptors.response.use(
     (response) => {
         return response;
     },
-    (error) => {
-        console.log(error.message);
+    (error: AxiosError) => {
+        if (error.response) {
+            if (error.response.status === 400) throw new BadRequestException();
+            throw new ServerException();
+        } else if (error.request) {
+            throw new TimeoutException();
+        }
+        console.log(error);
     }
 );
 

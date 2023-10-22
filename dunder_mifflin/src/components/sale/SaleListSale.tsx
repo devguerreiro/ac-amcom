@@ -53,7 +53,17 @@ export default function SaleListSale(props: Props) {
     return (
         <>
             <TableRow>
-                <TableCell>{sale.nfe}</TableCell>
+                <TableCell
+                    sx={{
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap",
+                        maxWidth: 200,
+                    }}
+                    title={sale.nfe}
+                >
+                    {sale.nfe}
+                </TableCell>
                 <TableCell>{sale.client.name}</TableCell>
                 <TableCell>{sale.seller.name}</TableCell>
                 <TableCell>
