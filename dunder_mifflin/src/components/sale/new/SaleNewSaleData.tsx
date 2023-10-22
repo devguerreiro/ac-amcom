@@ -1,14 +1,11 @@
-// framework
-import React from "react";
-
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { memo } from "react";
 
 // lib components
 import {
     Autocomplete,
     Box,
     Button,
+    SxProps,
     TextField,
     Typography,
 } from "@mui/material";
@@ -17,32 +14,39 @@ import {
 import Seller from "@/domain/entities/seller";
 import Client from "@/domain/entities/client";
 
-import SaleDataSchema, { TSaleDataSchema } from "./SaleNewSaleData.schemas";
+import useSaleData from "./SaleNewSaleData.view";
 
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 interface IProps {
+    sx?: SxProps;
     totalPrice: number;
     sellers: Array<Seller>;
     clients: Array<Client>;
-    onFinish: () => void;
     onCancel: () => void;
 }
 
-export default function SaleNewSaleData(props: IProps) {
-    const { totalPrice, sellers, clients, onFinish, onCancel } = props;
+export default memo(function SaleNewSaleData(props: IProps) {
+    console.log("SALE DATA");
+
+    const { sx, totalPrice, sellers, clients, onCancel } = props;
 
     const {
-        register,
-        handleSubmit,
-        setValue,
-        formState: { errors, isValid },
-    } = useForm<TSaleDataSchema>({
-        resolver: zodResolver(SaleDataSchema),
-    });
+        form,
+        setSeller,
+        setClient,
+        getSellerLabel,
+        getClientLabel,
+        isClientOptionEqualToValue,
+        isSellerOptionEqualToValue,
+    } = useSaleData();
+
+    const {
+        formState: { errors },
+    } = form;
 
     return (
-        <Box display="flex" flexDirection="column">
+        <Box sx={sx} display="flex" flexDirection="column">
             <Typography variant="h5" component="h2">
                 Dados da Venda
             </Typography>
@@ -56,15 +60,15 @@ export default function SaleNewSaleData(props: IProps) {
                     margin="normal"
                 />
                 <Autocomplete
-                    {...register("seller")}
+                    {...form.register("seller")}
+                    onChange={setSeller}
                     autoHighlight
+                    autoComplete
                     clearOnEscape
                     filterSelectedOptions
                     options={sellers}
-                    getOptionLabel={(option: Seller) => option.name}
-                    isOptionEqualToValue={(option: Seller, value: Seller) =>
-                        option.equal(value)
-                    }
+                    getOptionLabel={getSellerLabel}
+                    isOptionEqualToValue={isSellerOptionEqualToValue}
                     noOptionsText="Nenhum vendedor encontrado"
                     renderInput={(params) => (
                         <TextField
@@ -77,23 +81,17 @@ export default function SaleNewSaleData(props: IProps) {
                             margin="normal"
                         />
                     )}
-                    onChange={(_, value) => {
-                        // @ts-ignore
-                        setValue("seller", value && value.id, {
-                            shouldValidate: true,
-                        });
-                    }}
                 />
                 <Autocomplete
-                    {...register("client")}
+                    {...form.register("client")}
+                    onChange={setClient}
                     autoHighlight
+                    autoComplete
                     clearOnEscape
                     filterSelectedOptions
                     options={clients}
-                    getOptionLabel={(option: Client) => option.name}
-                    isOptionEqualToValue={(option: Client, value: Client) =>
-                        option.equal(value)
-                    }
+                    getOptionLabel={getClientLabel}
+                    isOptionEqualToValue={isClientOptionEqualToValue}
                     noOptionsText="Nenhum cliente encontrado"
                     renderInput={(params) => (
                         <TextField
@@ -106,15 +104,16 @@ export default function SaleNewSaleData(props: IProps) {
                             margin="normal"
                         />
                     )}
-                    onChange={(_, value) => {
-                        // @ts-ignore
-                        setValue("client", value && value.id, {
-                            shouldValidate: true,
-                        });
-                    }}
                 />
             </Box>
-            <Box mt={4} display="flex" justifyContent="space-between">
+            <Box
+                mt={4}
+                display="flex"
+                flexDirection="column"
+                justifyContent="space-between"
+                alignItems="end"
+                gap={1}
+            >
                 <Typography
                     variant="subtitle1"
                     component="strong"
@@ -123,11 +122,13 @@ export default function SaleNewSaleData(props: IProps) {
                     Valor total da venda:
                 </Typography>
                 <Typography
-                    ml={8}
                     variant="h5"
                     component="strong"
                     fontWeight="bold"
                     color="success.light"
+                    sx={{
+                        wordBreak: "break-word",
+                    }}
                 >
                     {convertToBRL(totalPrice)}
                 </Typography>
@@ -136,16 +137,10 @@ export default function SaleNewSaleData(props: IProps) {
                 <Button color="error" onClick={onCancel}>
                     Cancelar
                 </Button>
-                <Button
-                    variant="contained"
-                    type="submit"
-                    size="large"
-                    onClick={handleSubmit(onFinish)}
-                    disabled={!isValid}
-                >
+                <Button variant="contained" type="submit" size="large">
                     Finalizar
                 </Button>
             </Box>
         </Box>
     );
-}
+});

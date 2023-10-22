@@ -9,10 +9,10 @@ import Product from "@/domain/entities/product";
 
 export default function useFetchProducts() {
     const [products, setProducts] = useState<Array<Product>>([]);
-    const [isSearching, setIsSearching] = useState(false);
+    const [isFetching, setIsFetching] = useState(false);
 
     const searchProducts = async (query: string) => {
-        setIsSearching(true);
+        setIsFetching(true);
         try {
             const data = await ProductAPI.fetchProducts({
                 code: query,
@@ -23,13 +23,13 @@ export default function useFetchProducts() {
         } catch (e) {
             setProducts([]);
         } finally {
-            setIsSearching(false);
+            setIsFetching(false);
         }
     };
 
     return {
         products,
-        isSearching,
+        isFetching,
         searchProducts,
     };
 }
