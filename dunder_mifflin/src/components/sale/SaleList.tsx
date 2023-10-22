@@ -1,6 +1,3 @@
-// framework
-import React from "react";
-
 // lib components
 import {
     Paper,
@@ -25,21 +22,6 @@ interface IProps {
 export default function SaleList(props: IProps) {
     const { sales } = props;
 
-    const tableHeaders = [
-        "Nota Fiscal",
-        "Cliente",
-        "Vendedor",
-        "Data da Venda",
-        "Valor Total",
-        "Opções",
-    ];
-
-    const renderTableHeader = () => {
-        return tableHeaders.map((header: string) => (
-            <TableCell key={header}>{header}</TableCell>
-        ));
-    };
-
     const renderTableBody = () => {
         return sales.map((sale: Sale) => (
             <SaleListSale key={sale.nfe} sale={sale} />
@@ -62,3 +44,18 @@ export default function SaleList(props: IProps) {
         </TableContainer>
     );
 }
+
+const tableHeaders = [
+    "Nota Fiscal",
+    "Cliente",
+    "Vendedor",
+    "Data da Venda",
+    "Valor Total",
+    "Opções",
+];
+
+const renderTableHeader = () => {
+    return tableHeaders.map((header: string) => (
+        <TableCell key={header}>{header}</TableCell>
+    ));
+};

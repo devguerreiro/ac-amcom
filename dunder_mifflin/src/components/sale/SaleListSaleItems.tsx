@@ -21,21 +21,6 @@ interface Props {
 export default function SaleListSaleItems(props: Props) {
     const { sale, isExpanded } = props;
 
-    const tableHeaders = [
-        "Produtos/Serviço",
-        "Quantidade",
-        "Preço Unitário",
-        "Total do Produto",
-        "% de Comissão",
-        "Comissão",
-    ];
-
-    const renderTableHeader = () => {
-        return tableHeaders.map((header) => {
-            return <TableCell key={header}>{header}</TableCell>;
-        });
-    };
-
     const renderTableBody = () => {
         return (
             <>
@@ -115,3 +100,18 @@ export default function SaleListSaleItems(props: Props) {
         </TableRow>
     );
 }
+
+const tableHeaders = [
+    "Produtos/Serviço",
+    "Quantidade",
+    "Preço Unitário",
+    "Total do Produto",
+    "% de Comissão",
+    "Comissão",
+];
+
+const renderTableHeader = () => {
+    return tableHeaders.map((header) => {
+        return <TableCell key={header}>{header}</TableCell>;
+    });
+};
