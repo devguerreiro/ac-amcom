@@ -4,14 +4,20 @@ import React, { useState } from "react";
 import Head from "next/head";
 
 // lib components
-import { Alert, Container, CssBaseline, Snackbar } from "@mui/material";
+import {
+    Alert,
+    AlertColor,
+    Container,
+    CssBaseline,
+    Snackbar,
+} from "@mui/material";
 
 // app components
 import Header from "@/components/Header";
 import Navbar from "@/components/Navbar";
 
 // app services
-import useFeedback, { FeedbackContext } from "@/services/hooks/feedback";
+import FeedbackContext, { DefaultFeedback } from "@/services/contexts/feedback";
 
 interface ILayoutProps {
     children: React.ReactNode;
@@ -25,7 +31,23 @@ export default function Layout(props: ILayoutProps) {
     const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
     const closeNavbar = () => setIsNavbarOpen(false);
 
-    const { feedback, closeFeedback, showFeedback } = useFeedback();
+    const [feedback, setFeedback] = useState(DefaultFeedback);
+
+    const showFeedback = (message: string, severity: AlertColor = "error") => {
+        setFeedback({
+            ...DefaultFeedback,
+            message,
+            severity,
+            open: true,
+        });
+    };
+
+    const closeFeedback = () => {
+        setFeedback({
+            ...DefaultFeedback,
+            open: false,
+        });
+    };
 
     return (
         <>

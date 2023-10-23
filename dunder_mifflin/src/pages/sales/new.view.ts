@@ -12,7 +12,8 @@ import SellerService from "@/services/seller";
 import ClientService from "@/services/client";
 
 import SaleAPI from "@/services/api/sale";
-import { FeedbackContext } from "@/services/hooks/feedback";
+
+import FeedbackContext from "@/services/contexts/feedback";
 
 interface IProps {
     sellersData: any;

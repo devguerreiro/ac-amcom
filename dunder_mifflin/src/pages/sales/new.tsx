@@ -1,4 +1,6 @@
 // framework
+import { memo } from "react";
+
 import { useRouter } from "next/router";
 import Head from "next/head";
 
@@ -38,7 +40,7 @@ export async function getStaticProps(): Promise<{ props: IStaticProps }> {
 
 interface IProps extends IStaticProps {}
 
-export default function SalesNewPage(props: IProps) {
+export default memo(function SalesNewPage(props: IProps) {
     const { sellersData, clientsData } = props;
 
     const router = useRouter();
@@ -72,7 +74,7 @@ export default function SalesNewPage(props: IProps) {
             </FormProvider>
         </>
     );
-}
+});
 
 const sxSaleNewSaleData = {
     minWidth: 300,

@@ -6,7 +6,7 @@ import { Sale } from "@/domain/entities/sale";
 
 import SaleAPI from "@/services/api/sale";
 
-import { FeedbackContext } from "@/services/hooks/feedback";
+import FeedbackContext from "@/services/contexts/feedback";
 
 export default function useSales() {
     const [isDeleteDialogOpened, setDeleteDialogStatus] = useState(false);
