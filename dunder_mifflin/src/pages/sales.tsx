@@ -66,7 +66,12 @@ export default function SalesPage(props: IProps) {
                     </Box>
                 )}
                 <Box display="flex" justifyContent="space-between">
-                    <Typography variant="h5" component="h1">
+                    <Typography
+                        variant="h5"
+                        component="h1"
+                        fontWeight="bold"
+                        color="primary"
+                    >
                         Vendas Realizadas
                     </Typography>
                     <Link href="/sales/new">

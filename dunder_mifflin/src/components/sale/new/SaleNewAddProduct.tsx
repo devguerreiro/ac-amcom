@@ -45,7 +45,12 @@ export default memo(function SaleNewAddProduct(props: IProps) {
 
     return (
         <Box sx={sx}>
-            <Typography variant="h5" component="h2">
+            <Typography
+                variant="h5"
+                component="h2"
+                color="primary"
+                fontWeight="bold"
+            >
                 Produtos
             </Typography>
             <Box mt={2} display="flex" alignItems="start" gap={2}>

@@ -46,7 +46,12 @@ export default memo(function SaleNewSaleData(props: IProps) {
 
     return (
         <Box sx={sx} display="flex" flexDirection="column">
-            <Typography variant="h5" component="h2">
+            <Typography
+                variant="h5"
+                component="h2"
+                color="primary"
+                fontWeight="bold"
+            >
                 Dados da Venda
             </Typography>
             <Box display="flex" flexDirection="column" flexGrow={1}>
@@ -117,6 +122,7 @@ export default memo(function SaleNewSaleData(props: IProps) {
                     variant="subtitle1"
                     component="strong"
                     fontWeight="bold"
+                    color="primary"
                 >
                     Valor total da venda:
                 </Typography>
