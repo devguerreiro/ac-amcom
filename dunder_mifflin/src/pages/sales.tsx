@@ -1,5 +1,5 @@
 // framework
-import { useContext, useMemo, useRef, useState } from "react";
+import { useMemo } from "react";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -27,7 +27,8 @@ import SaleService from "@/services/sale";
 
 import { Sale } from "@/domain/entities/sale";
 import { SaleContext } from "@/services/contexts/sale";
-import { FeedbackContext } from "@/services/hooks/feedback";
+
+import useSales from "./sales.view";
 
 interface IStaticProps {
     data: any;
@@ -64,34 +65,12 @@ export default function SalesPage(props: IProps) {
         [data]
     );
 
-    const [showDeleteDialog, setShowDeleteDialog] = useState(false);
-    const saleDelete = useRef<Sale | null>(null);
-
-    const { showFeedback } = useContext(FeedbackContext);
-
-    const closeDeleteDialog = () => {
-        setShowDeleteDialog(false);
-    };
-
-    const confirmDelete = () => {
-        if (saleDelete.current) {
-            SaleAPI.deleteSale(saleDelete.current)
-                .then(() => {
-                    showFeedback("Venda excluida com sucesso", "success");
-                })
-                .catch((e: Error) => {
-                    showFeedback(e.message);
-                })
-                .finally(() => {
-                    closeDeleteDialog();
-                });
-        }
-    };
-
-    const deleteSale = (sale: Sale) => {
-        setShowDeleteDialog(true);
-        saleDelete.current = sale;
-    };
+    const {
+        isDeleteDialogOpened,
+        openDeleteDialog,
+        closeDeleteDialog,
+        confirmDeletion,
+    } = useSales();
 
     return (
         <>
@@ -99,7 +78,7 @@ export default function SalesPage(props: IProps) {
                 <title>Vendas Realizadas</title>
             </Head>
             <Dialog
-                open={showDeleteDialog}
+                open={isDeleteDialogOpened}
                 onClose={closeDeleteDialog}
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
@@ -115,7 +94,7 @@ export default function SalesPage(props: IProps) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeDeleteDialog}>Não</Button>
-                    <Button onClick={confirmDelete} autoFocus color="error">
+                    <Button onClick={confirmDeletion} autoFocus color="error">
                         Sim
                     </Button>
                 </DialogActions>
@@ -142,7 +121,7 @@ export default function SalesPage(props: IProps) {
                 <Box mt={6}>
                     <SaleContext.Provider
                         value={{
-                            deleteSale,
+                            openDeleteDialog,
                         }}
                     >
                         <SaleList sales={sales} />

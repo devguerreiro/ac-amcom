@@ -29,7 +29,7 @@ export default function SaleListSale(props: Props) {
 
     const [isExpanded, setIsExpanded] = useState(false);
 
-    const { deleteSale } = useContext(SaleContext);
+    const { openDeleteDialog } = useContext(SaleContext);
 
     const renderOptions = () => {
         return (
@@ -51,7 +51,7 @@ export default function SaleListSale(props: Props) {
                 <IconButton
                     aria-label="remover venda"
                     size="small"
-                    onClick={() => deleteSale(sale)}
+                    onClick={() => openDeleteDialog(sale)}
                 >
                     <DeleteIcon color="error" />
                 </IconButton>
