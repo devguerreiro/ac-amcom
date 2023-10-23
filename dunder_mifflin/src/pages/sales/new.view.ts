@@ -12,8 +12,7 @@ import SellerService from "@/services/seller";
 import ClientService from "@/services/client";
 
 import SaleAPI from "@/services/api/sale";
-
-import FeedbackContext from "@/services/contexts/feedback";
+import AppStateContext from "@/services/contexts/app";
 
 interface IProps {
     sellersData: any;
@@ -49,23 +48,26 @@ export default function useNewSale(props: IProps) {
         [clientsData]
     );
 
-    const { showFeedback } = useContext(FeedbackContext);
+    const { feedback } = useContext(AppStateContext);
 
     const finishSale = (data: TNewSaleSchema) => {
         SaleAPI.addSale(data)
             .then(() => {
-                showFeedback("Venda finalizada com sucesso!", "success");
+                feedback.showFeedback(
+                    "Venda finalizada com sucesso!",
+                    "success"
+                );
 
                 router.push("/sales");
             })
             .catch((e: Error) => {
-                showFeedback(e.message);
+                feedback.showFeedback(e.message);
             });
     };
 
     const onFormInvalid = (errors: FieldErrors<TNewSaleSchema>) => {
         if (errors.items?.message) {
-            showFeedback(errors.items?.message);
+            feedback.showFeedback(errors.items?.message);
         }
     };
 

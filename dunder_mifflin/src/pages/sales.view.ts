@@ -6,23 +6,26 @@ import { Sale } from "@/domain/entities/sale";
 
 import SaleAPI from "@/services/api/sale";
 
-import FeedbackContext from "@/services/contexts/feedback";
+import AppStateContext from "@/services/contexts/app";
 
 export default function useSales() {
     const [isDeleteDialogOpened, setDeleteDialogStatus] = useState(false);
 
     const saleDeletion = useRef<Sale | null>(null);
 
-    const { showFeedback } = useContext(FeedbackContext);
+    const { feedback } = useContext(AppStateContext);
 
     const confirmDeletion = () => {
         if (saleDeletion.current) {
             SaleAPI.deleteSale(saleDeletion.current)
                 .then(() => {
-                    showFeedback("Venda excluida com sucesso", "success");
+                    feedback.showFeedback(
+                        "Venda excluida com sucesso",
+                        "success"
+                    );
                 })
                 .catch((e: Error) => {
-                    showFeedback(e.message);
+                    feedback.showFeedback(e.message);
                 })
                 .finally(() => {
                     closeDeleteDialog();
