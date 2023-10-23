@@ -1,5 +1,6 @@
 // framework
 import Head from "next/head";
+import Image from "next/image";
 
 export default function HomePage() {
     return (
@@ -11,7 +12,13 @@ export default function HomePage() {
                     content="Dunder Mifflin, a melhor papelaria de Scranton"
                 />
             </Head>
-            <h1>Papelaria Dunder Mifflin</h1>
+            <h1>Bem Vindo a Papelaria Dunder Mifflin</h1>
+            <Image
+                src="/team.webp"
+                height={476}
+                width={700}
+                alt="Foto da equipe Dunder Mifflin"
+            />
         </main>
     );
 }
