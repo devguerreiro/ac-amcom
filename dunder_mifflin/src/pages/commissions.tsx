@@ -80,7 +80,7 @@ export default function Commissions() {
                             </TableRow>
                             <TableRow
                                 sx={{
-                                    color: "primary.main",
+                                    color: "warning.dark",
                                     fontWeight: "bold",
                                     "& .MuiTableCell-root": {
                                         color: "inherit",

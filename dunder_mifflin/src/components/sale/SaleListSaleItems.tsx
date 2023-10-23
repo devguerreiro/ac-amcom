@@ -52,7 +52,7 @@ export default memo(function SaleListSaleItems(props: Props) {
                 {/* total */}
                 <TableRow
                     sx={{
-                        color: "primary.main",
+                        color: "warning.dark",
                         fontWeight: "bold",
                         "& .MuiTableCell-root": {
                             color: "inherit",

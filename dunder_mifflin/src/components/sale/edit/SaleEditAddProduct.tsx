@@ -100,7 +100,7 @@ export default memo(function SaleEditAddProduct(props: IProps) {
                 <Button
                     variant="contained"
                     size="large"
-                    color="secondary"
+                    color="warning"
                     type="button"
                     onClick={addProduct}
                     disabled={!isValid}

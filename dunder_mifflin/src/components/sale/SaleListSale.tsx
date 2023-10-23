@@ -52,9 +52,9 @@ export default memo(function SaleListSale(props: Props) {
                     onClick={() => setIsExpanded(!isExpanded)}
                 >
                     {isExpanded ? (
-                        <KeyboardArrowUpIcon color="primary" />
+                        <KeyboardArrowUpIcon color="warning" />
                     ) : (
-                        <KeyboardArrowDownIcon color="primary" />
+                        <KeyboardArrowDownIcon color="warning" />
                     )}
                 </IconButton>
                 <IconButton
@@ -90,7 +90,7 @@ export default memo(function SaleListSale(props: Props) {
                 aria-labelledby="alert-dialog-title"
                 aria-describedby="alert-dialog-description"
             >
-                <DialogTitle id="alert-dialog-title" color="error">
+                <DialogTitle id="alert-dialog-title" color="warning.dark">
                     Confirmação de exclusão
                 </DialogTitle>
                 <DialogContent>
@@ -101,7 +101,7 @@ export default memo(function SaleListSale(props: Props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeDeleteDialog}>Não</Button>
-                    <Button onClick={confirmDeletion} autoFocus color="error">
+                    <Button onClick={confirmDeletion} autoFocus color="warning">
                         Sim
                     </Button>
                 </DialogActions>

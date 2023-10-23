@@ -129,7 +129,7 @@ export default memo(function SaleEditSaleData(props: IProps) {
                     variant="subtitle1"
                     component="strong"
                     fontWeight="bold"
-                    color="primary"
+                    color="warning.dark"
                 >
                     Valor total da venda:
                 </Typography>
@@ -146,7 +146,7 @@ export default memo(function SaleEditSaleData(props: IProps) {
                 </Typography>
             </Box>
             <Box mt={6} display="flex" justifyContent="space-between">
-                <Button color="error" onClick={onCancel}>
+                <Button color="warning" onClick={onCancel}>
                     Cancelar
                 </Button>
                 <Button variant="contained" type="submit" size="large">
