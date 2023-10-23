@@ -1,6 +1,8 @@
 // framework
 import { memo, useState } from "react";
 
+import { useRouter } from "next/router";
+
 // lib components
 import {
     Button,
@@ -37,6 +39,8 @@ interface Props {
 export default memo(function SaleListSale(props: Props) {
     const { sale } = props;
 
+    const router = useRouter();
+
     const [isExpanded, setIsExpanded] = useState(false);
 
     const renderOptions = () => {
@@ -53,7 +57,11 @@ export default memo(function SaleListSale(props: Props) {
                         <KeyboardArrowDownIcon color="primary" />
                     )}
                 </IconButton>
-                <IconButton aria-label="editar venda" size="small">
+                <IconButton
+                    aria-label="editar venda"
+                    size="small"
+                    onClick={() => router.push("/sales/edit/" + sale.id)}
+                >
                     <EditIcon color="primary" />
                 </IconButton>
                 <IconButton

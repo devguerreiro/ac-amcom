@@ -11,7 +11,9 @@ export const AddProductSchema = z
     })
     .required();
 
-const NewSaleSchema = z.object({
+export type TAddProductSchema = z.infer<typeof AddProductSchema>;
+
+export const NewSaleSchema = z.object({
     seller: z.instanceof(Seller, { message: "Vendedor inválido" }),
     client: z.instanceof(Client, {
         message: "Cliente inválido",
@@ -23,6 +25,18 @@ const NewSaleSchema = z.object({
 });
 
 export type TNewSaleSchema = z.infer<typeof NewSaleSchema>;
-export type TAddProductSchema = z.infer<typeof AddProductSchema>;
+
+export const EditSaleSchema = z.object({
+    seller: z.instanceof(Seller, { message: "Vendedor inválido" }),
+    client: z.instanceof(Client, {
+        message: "Cliente inválido",
+    }),
+    items: z
+        .object(AddProductSchema.shape)
+        .array()
+        .min(1, "Necessário adicionar pelo menos um produto"),
+});
+
+export type TEditSaleSchema = z.infer<typeof EditSaleSchema>;
 
 export default NewSaleSchema;
