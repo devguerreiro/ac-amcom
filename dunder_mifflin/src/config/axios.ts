@@ -1,8 +1,8 @@
 import axios, { AxiosError } from "axios";
 
-import BadRequestException from "@/exceptions/badRequest";
-import ServerException from "@/exceptions/server";
-import TimeoutException from "@/exceptions/timeout";
+import BadRequestException from "@/services/exceptions/badRequest";
+import ServerException from "@/services/exceptions/server";
+import TimeoutException from "@/services/exceptions/timeout";
 
 const _axios = axios.create({
     baseURL: process.env.NEXT_PUBLIC_API_BASE_URL,

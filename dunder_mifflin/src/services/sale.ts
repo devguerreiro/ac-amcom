@@ -3,7 +3,7 @@ import { ProductFactory } from "@/domain/entities/product";
 import { Sale, SaleFactory, SaleItemFactory } from "@/domain/entities/sale";
 import { SellerFactory } from "@/domain/entities/seller";
 
-import MapperException from "@/exceptions/mapper";
+import MapperException from "@/services/exceptions/mapper";
 
 export default class SaleService {
     static fromAPIList(data: any): Array<Sale> {
