@@ -1,5 +1,5 @@
 // framework
-import { useContext, useState } from "react";
+import { memo, useContext, useState } from "react";
 
 // lib components
 import { IconButton, TableCell, TableRow } from "@mui/material";
@@ -24,7 +24,7 @@ interface Props {
     sale: Sale;
 }
 
-export default function SaleListSale(props: Props) {
+export default memo(function SaleListSale(props: Props) {
     const { sale } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
@@ -87,4 +87,4 @@ export default function SaleListSale(props: Props) {
             <SaleListSaleItems sale={sale} isExpanded={isExpanded} />
         </>
     );
-}
+});

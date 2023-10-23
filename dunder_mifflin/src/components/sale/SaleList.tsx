@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 // lib components
 import {
     Paper,
@@ -19,7 +21,7 @@ interface IProps {
     sales: Array<Sale>;
 }
 
-export default function SaleList(props: IProps) {
+export default memo(function SaleList(props: IProps) {
     const { sales } = props;
 
     const renderTableBody = () => {
@@ -43,7 +45,7 @@ export default function SaleList(props: IProps) {
             </Table>
         </TableContainer>
     );
-}
+});
 
 const tableHeaders = [
     "Nota Fiscal",

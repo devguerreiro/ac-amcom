@@ -1,5 +1,5 @@
 // framework
-import { memo, useMemo } from "react";
+import { useMemo } from "react";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -57,10 +57,10 @@ export async function getStaticProps(): Promise<{ props: IStaticProps }> {
 
 interface IProps extends IStaticProps {}
 
-export default memo(function SalesPage(props: IProps) {
+export default function SalesPage(props: IProps) {
     const { data, error } = props;
 
-    const sales: Array<Sale> = useMemo(
+    let sales: Array<Sale> = useMemo(
         () => SaleService.fromAPIList(data),
         [data]
     );
@@ -130,4 +130,4 @@ export default memo(function SalesPage(props: IProps) {
             </Box>
         </>
     );
-});
+}

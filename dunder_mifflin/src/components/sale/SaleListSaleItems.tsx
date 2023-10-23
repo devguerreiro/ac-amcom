@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 // lib components
 import {
     Box,
@@ -11,6 +13,7 @@ import {
 
 // app services
 import { Sale } from "@/domain/entities/sale";
+
 import { convertToBRL, convertToPercentage } from "@/utils";
 
 interface Props {
@@ -18,7 +21,7 @@ interface Props {
     isExpanded: boolean;
 }
 
-export default function SaleListSaleItems(props: Props) {
+export default memo(function SaleListSaleItems(props: Props) {
     const { sale, isExpanded } = props;
 
     const renderTableBody = () => {
@@ -99,7 +102,7 @@ export default function SaleListSaleItems(props: Props) {
             </TableCell>
         </TableRow>
     );
-}
+});
 
 const tableHeaders = [
     "Produtos/Serviço",

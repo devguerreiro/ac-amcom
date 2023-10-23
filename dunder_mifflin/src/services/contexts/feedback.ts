@@ -10,7 +10,7 @@ interface IFeedback {
     timeout: number;
 }
 
-export interface IFeedbackContext {
+interface IFeedbackContext {
     feedback: IFeedback;
     showFeedback: (message: string, severity?: AlertColor) => void;
     closeFeedback: () => void;
@@ -28,4 +28,6 @@ export const DefaultFeedback: IFeedback = {
 };
 
 // @ts-ignore
-export default createContext<IFeedbackContext>(null);
+const FeedbackContext = createContext<IFeedbackContext>(null);
+
+export default FeedbackContext;
