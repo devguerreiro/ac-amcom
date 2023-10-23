@@ -23,18 +23,26 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import SaleAPI from "@/services/api/sale";
 import { convertToBRL } from "@/utils";
 
+import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/pt-br";
+
+const tomorrow = dayjs().add(1, "day");
 
 export default function Commissions() {
     const [commissions, setCommissions] = useState([]);
-
-    const [startDate, setStartDate] = useState("");
-    const [endDate, setEndDate] = useState("");
+    const [hasError, setHasError] = useState(false);
+    const [startDate, setStartDate] = useState<Dayjs | null>(null);
+    const [endDate, setEndDate] = useState<Dayjs | null>(null);
 
     const getCommissions = () => {
-        SaleAPI.fetchCommissions(startDate, endDate).then((data) => {
-            setCommissions(data);
-        });
+        if (startDate && endDate) {
+            SaleAPI.fetchCommissions(
+                startDate.format("DD/MM/YYYY"),
+                endDate.format("DD/MM/YYYY")
+            ).then((data) => {
+                setCommissions(data);
+            });
+        }
     };
 
     const totalPeriod = () => {
@@ -62,23 +70,30 @@ export default function Commissions() {
                         adapterLocale="pt-br"
                     >
                         <DatePicker
-                            onChange={(e: any) =>
-                                setStartDate(e.format("DD/MM/YYYY"))
-                            }
+                            onChange={(e, { validationError }) => {
+                                setStartDate(e as Dayjs | null);
+                                setHasError(!!validationError);
+                            }}
                             label="Início Período"
                         />
                         <DatePicker
-                            onChange={(e: any) =>
-                                setEndDate(e.format("DD/MM/YYYY"))
-                            }
+                            onChange={(e, { validationError }) => {
+                                setEndDate(e);
+                                setHasError(!!validationError);
+                            }}
                             label="Fim Período"
+                            maxDate={tomorrow}
                         />
                     </LocalizationProvider>
-                    <Button variant="contained" onClick={getCommissions}>
+                    <Button
+                        variant="contained"
+                        onClick={getCommissions}
+                        disabled={hasError || !startDate || !endDate}
+                    >
                         <SearchIcon></SearchIcon>
                     </Button>
                 </Box>
-                <TableContainer sx={{ mt: 8 }} component={Paper}>
+                <TableContainer sx={{ my: 8 }} component={Paper}>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -99,25 +114,39 @@ export default function Commissions() {
                                     </TableCell>
                                 </TableRow>
                             ))}
-                            <TableRow
-                                sx={{
-                                    color: "warning.dark",
-                                    fontWeight: "bold",
-                                    "& .MuiTableCell-root": {
-                                        color: "inherit",
-                                        fontWeight: "inherit",
-                                    },
-                                }}
-                            >
-                                <TableCell>
-                                    Total de Comissões do Período
-                                </TableCell>
-                                <TableCell></TableCell>
-                                <TableCell></TableCell>
-                                <TableCell>
-                                    {convertToBRL(totalPeriod())}
-                                </TableCell>
-                            </TableRow>
+                            {commissions.length > 0 ? (
+                                <TableRow
+                                    sx={{
+                                        color: "warning.dark",
+                                        fontWeight: "bold",
+                                        "& .MuiTableCell-root": {
+                                            color: "inherit",
+                                            fontWeight: "inherit",
+                                        },
+                                    }}
+                                >
+                                    <TableCell>
+                                        Total de Comissões do Período
+                                    </TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell></TableCell>
+                                    <TableCell>
+                                        {convertToBRL(totalPeriod())}
+                                    </TableCell>
+                                </TableRow>
+                            ) : (
+                                <TableRow>
+                                    <TableCell
+                                        colSpan={10}
+                                        sx={{
+                                            textAlign: "center",
+                                        }}
+                                    >
+                                        Para visualizar o relatório, selecione
+                                        um período nos campos acima.
+                                    </TableCell>
+                                </TableRow>
+                            )}
                         </TableBody>
                     </Table>
                 </TableContainer>
