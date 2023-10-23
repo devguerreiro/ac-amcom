@@ -57,13 +57,21 @@ export default function Navbar(props: IProps) {
                             <ChevronRightIcon />
                         </MenuItem>
                     </Link>
-                    <MenuItem>
-                        <ListItemIcon>
-                            <CalculateIcon />
-                        </ListItemIcon>
-                        <ListItemText>Comissões</ListItemText>
-                        <ChevronRightIcon />
-                    </MenuItem>
+                    <Link
+                        href="/commissions"
+                        style={{
+                            textDecoration: "inherit",
+                            color: "inherit",
+                        }}
+                    >
+                        <MenuItem>
+                            <ListItemIcon>
+                                <CalculateIcon />
+                            </ListItemIcon>
+                            <ListItemText>Comissões</ListItemText>
+                            <ChevronRightIcon />
+                        </MenuItem>
+                    </Link>
                 </MenuList>
             </nav>
         </SwipeableDrawer>
