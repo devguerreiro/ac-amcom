@@ -25,7 +25,7 @@ export default class SaleAPI {
     }
 
     static async deleteSale(sale: Sale) {
-        const response = await axios.delete(this.BASE_URL + sale.id);
+        const response = await axios.delete(this.BASE_URL + sale.id + "/");
         return response.data;
     }
 }

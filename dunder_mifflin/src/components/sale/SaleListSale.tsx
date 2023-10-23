@@ -1,8 +1,19 @@
 // framework
-import { memo, useContext, useState } from "react";
+import { memo, useState } from "react";
 
 // lib components
-import { IconButton, TableCell, TableRow } from "@mui/material";
+import {
+    Button,
+    Dialog,
+    DialogActions,
+    DialogContent,
+    DialogContentText,
+    DialogTitle,
+    IconButton,
+    TableCell,
+    TableRow,
+} from "@mui/material";
+
 import {
     KeyboardArrowUp as KeyboardArrowUpIcon,
     KeyboardArrowDown as KeyboardArrowDownIcon,
@@ -13,12 +24,11 @@ import {
 // app services
 import { Sale } from "@/domain/entities/sale";
 
-import { SaleContext } from "@/services/contexts/sale";
-
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 // app components
 import SaleListSaleItems from "./SaleListSaleItems";
+import useListSale from "./SaleListSale.view";
 
 interface Props {
     sale: Sale;
@@ -28,8 +38,6 @@ export default memo(function SaleListSale(props: Props) {
     const { sale } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
-
-    const { openDeleteDialog } = useContext(SaleContext);
 
     const renderOptions = () => {
         return (
@@ -59,8 +67,37 @@ export default memo(function SaleListSale(props: Props) {
         );
     };
 
+    const {
+        isDeleteDialogOpened,
+        confirmDeletion,
+        openDeleteDialog,
+        closeDeleteDialog,
+    } = useListSale({ sale });
+
     return (
         <>
+            <Dialog
+                open={isDeleteDialogOpened}
+                onClose={closeDeleteDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+            >
+                <DialogTitle id="alert-dialog-title" color="error">
+                    Confirmação de exclusão
+                </DialogTitle>
+                <DialogContent>
+                    <DialogContentText id="alert-dialog-description">
+                        Deseja realmente excluir esta venda?{" "}
+                        <strong>Esta ação não poderá ser revertida</strong>
+                    </DialogContentText>
+                </DialogContent>
+                <DialogActions>
+                    <Button onClick={closeDeleteDialog}>Não</Button>
+                    <Button onClick={confirmDeletion} autoFocus color="error">
+                        Sim
+                    </Button>
+                </DialogActions>
+            </Dialog>
             <TableRow>
                 <TableCell
                     sx={{

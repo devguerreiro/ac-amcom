@@ -8,34 +8,30 @@ import SaleAPI from "@/services/api/sale";
 
 import AppStateContext from "@/services/contexts/app";
 
-export default function useSales() {
-    const [isDeleteDialogOpened, setDeleteDialogStatus] = useState(false);
+interface IProps {
+    sale: Sale;
+}
 
-    const saleDeletion = useRef<Sale | null>(null);
+export default function useListSale({ sale }: IProps) {
+    const [isDeleteDialogOpened, setDeleteDialogStatus] = useState(false);
 
     const { feedback } = useContext(AppStateContext);
 
     const confirmDeletion = () => {
-        if (saleDeletion.current) {
-            SaleAPI.deleteSale(saleDeletion.current)
-                .then(() => {
-                    feedback.showFeedback(
-                        "Venda excluida com sucesso",
-                        "success"
-                    );
-                })
-                .catch((e: Error) => {
-                    feedback.showFeedback(e.message);
-                })
-                .finally(() => {
-                    closeDeleteDialog();
-                });
-        }
+        SaleAPI.deleteSale(sale)
+            .then(() => {
+                feedback.showFeedback("Venda excluida com sucesso", "success");
+            })
+            .catch((e: Error) => {
+                feedback.showFeedback(e.message);
+            })
+            .finally(() => {
+                closeDeleteDialog();
+            });
     };
 
     const openDeleteDialog = (sale: Sale) => {
         setDeleteDialogStatus(true);
-        saleDeletion.current = sale;
     };
 
     const closeDeleteDialog = () => {
