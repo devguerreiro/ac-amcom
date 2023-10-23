@@ -45,4 +45,16 @@ export default class SaleAPI {
         });
         return response.data;
     }
+
+    static async fetchCommissions(startDate: string, endDate: string) {
+        console.log(startDate, endDate);
+
+        const response = await axios.get(this.BASE_URL + "commissions", {
+            params: new URLSearchParams({
+                from: startDate,
+                to: endDate,
+            }),
+        });
+        return response.data;
+    }
 }
