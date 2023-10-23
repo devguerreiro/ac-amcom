@@ -1,5 +1,5 @@
 // framework
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 // lib components
 import { IconButton, TableCell, TableRow } from "@mui/material";
@@ -12,6 +12,9 @@ import {
 
 // app services
 import { Sale } from "@/domain/entities/sale";
+
+import { SaleContext } from "@/services/contexts/sale";
+
 import { convertToBRDate, convertToBRL } from "@/utils";
 
 // app components
@@ -25,6 +28,8 @@ export default function SaleListSale(props: Props) {
     const { sale } = props;
 
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const { deleteSale } = useContext(SaleContext);
 
     const renderOptions = () => {
         return (
@@ -43,7 +48,11 @@ export default function SaleListSale(props: Props) {
                 <IconButton aria-label="editar venda" size="small">
                     <EditIcon color="primary" />
                 </IconButton>
-                <IconButton aria-label="remover venda" size="small">
+                <IconButton
+                    aria-label="remover venda"
+                    size="small"
+                    onClick={() => deleteSale(sale)}
+                >
                     <DeleteIcon color="error" />
                 </IconButton>
             </>

@@ -1,5 +1,7 @@
 import axios from "@/config/axios";
 
+import { Sale } from "@/domain/entities/sale";
+
 import { TNewSaleSchema } from "@/domain/schemas/sale";
 
 export default class SaleAPI {
@@ -19,6 +21,11 @@ export default class SaleAPI {
                 quantity: item.quantity,
             })),
         });
+        return response.data;
+    }
+
+    static async deleteSale(sale: Sale) {
+        const response = await axios.delete(this.BASE_URL + sale.id);
         return response.data;
     }
 }
