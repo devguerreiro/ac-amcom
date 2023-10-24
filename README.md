@@ -4,11 +4,15 @@
 Esta aplicacao foi desenvolvida utilizando Next.js com Material UI + React hook form + Zod.
 
 ## Requisitos
-- [Docker](https://docs.docker.com/engine/install/)
+- Node v18+
 
-Para executar, basta rodar o seguinte comando:
+Para executar, basta acessar o diretorio **dunder_mifflin** e rodar os seguintes comandos:
 
-`docker compose up -d`
+Para instalacao das dependencias:
+`yarn ou npm install`
+
+Para executacao da aplicacao:
+`yarn dev ou npm run dev`
 
 A aplicacao estara rodando no endereco **localhost:3000**
 
