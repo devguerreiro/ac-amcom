@@ -21,7 +21,7 @@ interface IStaticProps {
     error?: string;
 }
 
-export async function getStaticProps(): Promise<{ props: IStaticProps }> {
+export async function getServerSideProps(): Promise<{ props: IStaticProps }> {
     let props: IStaticProps;
 
     try {
