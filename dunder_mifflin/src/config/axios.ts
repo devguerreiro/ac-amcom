@@ -15,6 +15,7 @@ _axios.interceptors.response.use(
     },
     (error: AxiosError) => {
         if (error.response) {
+            console.log(error.response);
             if (error.response.status === 400) throw new BadRequestException();
             throw new ServerException();
         } else if (error.request) {

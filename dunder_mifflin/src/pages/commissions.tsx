@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useContext, useRef, useState } from "react";
 import Head from "next/head";
 
 import {
@@ -25,6 +25,7 @@ import { convertToBRL } from "@/utils";
 
 import dayjs, { Dayjs } from "dayjs";
 import "dayjs/locale/pt-br";
+import AppStateContext from "@/services/contexts/app";
 
 const tomorrow = dayjs().add(1, "day");
 
@@ -34,14 +35,20 @@ export default function Commissions() {
     const [startDate, setStartDate] = useState<Dayjs | null>(null);
     const [endDate, setEndDate] = useState<Dayjs | null>(null);
 
+    const { feedback } = useContext(AppStateContext);
+
     const getCommissions = () => {
         if (startDate && endDate) {
             SaleAPI.fetchCommissions(
                 startDate.format("DD/MM/YYYY"),
                 endDate.format("DD/MM/YYYY")
-            ).then((data) => {
-                setCommissions(data);
-            });
+            )
+                .then((data) => {
+                    setCommissions(data);
+                })
+                .catch((e: Error) => {
+                    feedback.showFeedback(e.message);
+                });
         }
     };
 
