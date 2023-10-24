@@ -5,8 +5,11 @@ Esta aplicacao foi desenvolvida utilizando Next.js com Material UI + React hook 
 
 ## Requisitos
 - Node v18+
+- [Backend](https://github.com/devguerreiro/bc-amcom)
 
-Para executar, basta acessar o diretorio **dunder_mifflin** e rodar os seguintes comandos:
+Necessario fazer o clone do backend e executa-lo conforme as orientacoes do README do repositorio.
+
+Apos isso, basta acessar o diretorio **dunder_mifflin** deste repositorio e executar os seguintes comandos:
 
 Para instalacao das dependencias:
 `yarn ou npm install`
