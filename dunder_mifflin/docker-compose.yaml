@@ -35,7 +35,7 @@ services:
             - backend_network
         restart: always
         healthcheck:
-            test: pg_isready -d dunder_mifflin -q
+            test: pg_isready -d dunder_mifflin -U db_user -q
             start_period: 10s
         volumes:
             - db_volume:/var/lib/postgresql/data
