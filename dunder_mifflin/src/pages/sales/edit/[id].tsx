@@ -20,6 +20,8 @@ import SaleAPI from "@/services/api/sale";
 
 import useEditSale from "./view";
 
+import Layout from "@/layouts/default";
+
 export async function getStaticPaths() {
     const sales = await SaleAPI.fetchSales();
     const paths = sales.map((sale: any) => ({
@@ -76,26 +78,28 @@ export default memo(function SalesEditPage(props: IProps) {
             <Head>
                 <title>Editar Venda</title>
             </Head>
-            <FormProvider {...form}>
-                <form onSubmit={form.handleSubmit(saveSale, onFormInvalid)}>
-                    <Box mt={6} mx={2} display="flex" gap={6}>
-                        <SaleEditAddProduct sx={sxSaleEditAddProduct} />
-                        <Divider
-                            variant="middle"
-                            orientation="vertical"
-                            flexItem
-                        />
-                        <SaleEditSaleData
-                            sx={sxSaleEditSaleData}
-                            totalPrice={totalPrice}
-                            sellers={sellers}
-                            clients={clients}
-                            sale={sale}
-                            onCancel={router.back}
-                        />
-                    </Box>
-                </form>
-            </FormProvider>
+            <Layout>
+                <FormProvider {...form}>
+                    <form onSubmit={form.handleSubmit(saveSale, onFormInvalid)}>
+                        <Box mt={6} mx={2} display="flex" gap={6}>
+                            <SaleEditAddProduct sx={sxSaleEditAddProduct} />
+                            <Divider
+                                variant="middle"
+                                orientation="vertical"
+                                flexItem
+                            />
+                            <SaleEditSaleData
+                                sx={sxSaleEditSaleData}
+                                totalPrice={totalPrice}
+                                sellers={sellers}
+                                clients={clients}
+                                sale={sale}
+                                onCancel={router.back}
+                            />
+                        </Box>
+                    </form>
+                </FormProvider>
+            </Layout>
         </>
     );
 });

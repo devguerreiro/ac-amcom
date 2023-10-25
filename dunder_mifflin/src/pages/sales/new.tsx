@@ -19,6 +19,8 @@ import ClientAPI from "@/services/api/client";
 
 import useNewSale from "./new.view";
 
+import Layout from "@/layouts/default";
+
 interface IStaticProps {
     sellersData: any;
     clientsData: any;
@@ -53,25 +55,29 @@ export default memo(function SalesNewPage(props: IProps) {
             <Head>
                 <title>Nova Venda</title>
             </Head>
-            <FormProvider {...form}>
-                <form onSubmit={form.handleSubmit(finishSale, onFormInvalid)}>
-                    <Box mt={6} mx={2} display="flex" gap={6}>
-                        <SaleNewAddProduct sx={sxSaleNewAddProduct} />
-                        <Divider
-                            variant="middle"
-                            orientation="vertical"
-                            flexItem
-                        />
-                        <SaleNewSaleData
-                            sx={sxSaleNewSaleData}
-                            totalPrice={totalPrice}
-                            sellers={sellers}
-                            clients={clients}
-                            onCancel={router.back}
-                        />
-                    </Box>
-                </form>
-            </FormProvider>
+            <Layout>
+                <FormProvider {...form}>
+                    <form
+                        onSubmit={form.handleSubmit(finishSale, onFormInvalid)}
+                    >
+                        <Box mt={6} mx={2} display="flex" gap={6}>
+                            <SaleNewAddProduct sx={sxSaleNewAddProduct} />
+                            <Divider
+                                variant="middle"
+                                orientation="vertical"
+                                flexItem
+                            />
+                            <SaleNewSaleData
+                                sx={sxSaleNewSaleData}
+                                totalPrice={totalPrice}
+                                sellers={sellers}
+                                clients={clients}
+                                onCancel={router.back}
+                            />
+                        </Box>
+                    </form>
+                </FormProvider>
+            </Layout>
         </>
     );
 });

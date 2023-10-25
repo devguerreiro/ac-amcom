@@ -16,6 +16,8 @@ import SaleService from "@/services/sale";
 
 import { Sale } from "@/domain/entities/sale";
 
+import Layout from "@/layouts/default";
+
 interface IStaticProps {
     data: any;
     error?: string;
@@ -46,7 +48,7 @@ interface IProps extends IStaticProps {}
 export default function SalesPage(props: IProps) {
     const { data, error } = props;
 
-    let sales: Array<Sale> = useMemo(
+    const sales: Array<Sale> = useMemo(
         () => SaleService.fromAPIList(data),
         [data]
     );
@@ -56,7 +58,7 @@ export default function SalesPage(props: IProps) {
             <Head>
                 <title>Vendas Realizadas</title>
             </Head>
-            <Box mt={6} mx={2}>
+            <Layout>
                 {error && (
                     <Box mb={4}>
                         <Alert severity="error">
@@ -83,7 +85,7 @@ export default function SalesPage(props: IProps) {
                 <Box mt={6}>
                     <SaleList sales={sales} />
                 </Box>
-            </Box>
+            </Layout>
         </>
     );
 }
