@@ -1,5 +1,5 @@
 // framework
-import { useState } from "react";
+import { useMemo, useState } from "react";
 
 import { useRouter } from "next/router";
 
@@ -113,6 +113,8 @@ export default function SaleListSale(props: Props) {
         );
     };
 
+    const MIsExpanded = useMemo(() => isExpanded, [isExpanded]);
+
     return (
         <>
             {renderDialog()}
@@ -139,7 +141,7 @@ export default function SaleListSale(props: Props) {
                 <TableCell>{renderOptions()}</TableCell>
             </TableRow>
             {/* expanded */}
-            <SaleListSaleItems sale={sale} isExpanded={isExpanded} />
+            <SaleListSaleItems sale={sale} isExpanded={MIsExpanded} />
         </>
     );
 }

@@ -1,3 +1,5 @@
+import { memo } from "react";
+
 // lib components
 import {
     Box,
@@ -19,7 +21,7 @@ interface Props {
     isExpanded: boolean;
 }
 
-export default function SaleListSaleItems(props: Props) {
+export default memo(function SaleListSaleItems(props: Props) {
     const { sale, isExpanded } = props;
 
     const renderRows = () => {
@@ -47,7 +49,7 @@ export default function SaleListSaleItems(props: Props) {
                         </TableCell>
                     </TableRow>
                 ))}
-                {renderTotalRow}
+                {renderTotalRow()}
             </>
         );
     };
@@ -105,7 +107,7 @@ export default function SaleListSaleItems(props: Props) {
             </TableCell>
         </TableRow>
     );
-}
+});
 
 const tableHeaders = [
     "Produtos/Serviço",
