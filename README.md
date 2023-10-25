@@ -4,11 +4,18 @@
 Esta aplicacao foi desenvolvida utilizando Next.js com Material UI + React hook form + Zod.
 
 ## Requisitos
-- [Docker](https://docs.docker.com/engine/install/)
+- Node v18+
+- [Backend](https://github.com/devguerreiro/bc-amcom)
 
-Para executar, basta rodar o seguinte comando:
+Necessario fazer o clone do backend e executa-lo conforme as orientacoes do README do repositorio.
 
-`docker compose up -d`
+Apos isso, basta acessar o diretorio **dunder_mifflin** deste repositorio e executar os seguintes comandos:
+
+Para instalacao das dependencias:
+`yarn ou npm install`
+
+Para executacao da aplicacao:
+`yarn dev ou npm run dev`
 
 A aplicacao estara rodando no endereco **localhost:3000**
 
