@@ -1,4 +1,6 @@
 // framework
+import { memo } from "react";
+
 import Link from "next/link";
 
 // lib components
@@ -24,7 +26,7 @@ interface IProps {
     onClose: () => void;
 }
 
-export default function Navbar(props: IProps) {
+export default memo(function Navbar(props: IProps) {
     const { isOpen, onClose } = props;
 
     return (
@@ -76,4 +78,4 @@ export default function Navbar(props: IProps) {
             </nav>
         </SwipeableDrawer>
     );
-}
+});

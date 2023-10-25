@@ -1,5 +1,5 @@
 // framework
-import { useContext, useRef, useState } from "react";
+import { useContext, useState } from "react";
 
 // app services
 import { Sale } from "@/domain/entities/sale";
@@ -8,16 +8,12 @@ import SaleAPI from "@/services/api/sale";
 
 import AppStateContext from "@/services/contexts/app";
 
-interface IProps {
-    sale: Sale;
-}
-
-export default function useListSale({ sale }: IProps) {
+export default function useListSale() {
     const [isDeleteDialogOpened, setDeleteDialogStatus] = useState(false);
 
     const { feedback } = useContext(AppStateContext);
 
-    const confirmDeletion = () => {
+    const confirmDeletion = (sale: Sale) => {
         SaleAPI.deleteSale(sale)
             .then(() => {
                 feedback.showFeedback("Venda excluida com sucesso", "success");
@@ -30,7 +26,7 @@ export default function useListSale({ sale }: IProps) {
             });
     };
 
-    const openDeleteDialog = (sale: Sale) => {
+    const openDeleteDialog = () => {
         setDeleteDialogStatus(true);
     };
 

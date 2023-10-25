@@ -1,4 +1,6 @@
 // framework
+import { memo } from "react";
+
 import Link from "next/link";
 import Image from "next/image";
 
@@ -13,7 +15,7 @@ interface IProps {
 
 export const HEIGHT = 87;
 
-export default function Header(props: IProps) {
+export default memo(function Header(props: IProps) {
     const { onMenuClick } = props;
 
     return (
@@ -58,4 +60,4 @@ export default function Header(props: IProps) {
             </AppBar>
         </Box>
     );
-}
+});

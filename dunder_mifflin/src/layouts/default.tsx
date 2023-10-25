@@ -1,5 +1,5 @@
 // framework
-import React, { useContext, useState } from "react";
+import React, { useCallback, useContext, useMemo, useState } from "react";
 
 import Head from "next/head";
 
@@ -22,39 +22,48 @@ export default function Layout(props: ILayoutProps) {
 
     const [isNavbarOpen, setIsNavbarOpen] = useState(false);
 
-    const toggleNavbar = () => setIsNavbarOpen(!isNavbarOpen);
-    const closeNavbar = () => setIsNavbarOpen(false);
+    const memoIsNavbarOpen = useMemo(() => isNavbarOpen, [isNavbarOpen]);
+
+    const toggleNavbar = useCallback(
+        () => setIsNavbarOpen(!isNavbarOpen),
+        [isNavbarOpen]
+    );
+
+    const closeNavbar = useCallback(() => setIsNavbarOpen(false), []);
 
     const { feedback } = useContext(AppStateContext);
 
     return (
         <>
-            <Head>
-                <meta
-                    name="viewport"
-                    content="initial-scale=1, width=device-width"
-                />
-                <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-            </Head>
             <CssBaseline />
-            <Snackbar
-                anchorOrigin={feedback.state.place}
-                autoHideDuration={feedback.state.timeout}
-                open={feedback.state.open}
-                onClose={feedback.closeFeedback}
-            >
-                <Alert
-                    severity={feedback.state.severity}
-                    sx={{ width: "100%" }}
+            {MHead}
+            {feedback.state.open && (
+                <Snackbar
+                    anchorOrigin={feedback.state.place}
+                    autoHideDuration={feedback.state.timeout}
+                    open={feedback.state.open}
+                    onClose={feedback.closeFeedback}
                 >
-                    {feedback.state.message}
-                </Alert>
-            </Snackbar>
+                    <Alert
+                        severity={feedback.state.severity}
+                        sx={{ width: "100%" }}
+                    >
+                        {feedback.state.message}
+                    </Alert>
+                </Snackbar>
+            )}
             <Header onMenuClick={toggleNavbar} />
-            <Navbar isOpen={isNavbarOpen} onClose={closeNavbar} />
+            <Navbar isOpen={memoIsNavbarOpen} onClose={closeNavbar} />
             <main>
-                <Container>{children}</Container>
+                <Container sx={{ mt: 6 }}>{children}</Container>
             </main>
         </>
     );
 }
+
+const MHead = (
+    <Head>
+        <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    </Head>
+);

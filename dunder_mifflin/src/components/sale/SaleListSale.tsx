@@ -1,5 +1,5 @@
 // framework
-import { memo, useState } from "react";
+import { useState } from "react";
 
 import { useRouter } from "next/router";
 
@@ -36,12 +36,19 @@ interface Props {
     sale: Sale;
 }
 
-export default memo(function SaleListSale(props: Props) {
+export default function SaleListSale(props: Props) {
     const { sale } = props;
 
     const router = useRouter();
 
     const [isExpanded, setIsExpanded] = useState(false);
+
+    const {
+        isDeleteDialogOpened,
+        confirmDeletion,
+        openDeleteDialog,
+        closeDeleteDialog,
+    } = useListSale();
 
     const renderOptions = () => {
         return (
@@ -67,7 +74,7 @@ export default memo(function SaleListSale(props: Props) {
                 <IconButton
                     aria-label="remover venda"
                     size="small"
-                    onClick={() => openDeleteDialog(sale)}
+                    onClick={openDeleteDialog}
                 >
                     <DeleteIcon color="error" />
                 </IconButton>
@@ -75,15 +82,8 @@ export default memo(function SaleListSale(props: Props) {
         );
     };
 
-    const {
-        isDeleteDialogOpened,
-        confirmDeletion,
-        openDeleteDialog,
-        closeDeleteDialog,
-    } = useListSale({ sale });
-
-    return (
-        <>
+    const renderDialog = () => {
+        return (
             <Dialog
                 open={isDeleteDialogOpened}
                 onClose={closeDeleteDialog}
@@ -101,11 +101,21 @@ export default memo(function SaleListSale(props: Props) {
                 </DialogContent>
                 <DialogActions>
                     <Button onClick={closeDeleteDialog}>Não</Button>
-                    <Button onClick={confirmDeletion} autoFocus color="warning">
+                    <Button
+                        onClick={() => confirmDeletion(sale)}
+                        autoFocus
+                        color="warning"
+                    >
                         Sim
                     </Button>
                 </DialogActions>
             </Dialog>
+        );
+    };
+
+    return (
+        <>
+            {renderDialog()}
             <TableRow>
                 <TableCell
                     sx={{
@@ -132,4 +142,4 @@ export default memo(function SaleListSale(props: Props) {
             <SaleListSaleItems sale={sale} isExpanded={isExpanded} />
         </>
     );
-});
+}

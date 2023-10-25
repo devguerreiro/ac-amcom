@@ -1,5 +1,3 @@
-import { memo } from "react";
-
 // lib components
 import {
     Box,
@@ -21,10 +19,10 @@ interface Props {
     isExpanded: boolean;
 }
 
-export default memo(function SaleListSaleItems(props: Props) {
+export default function SaleListSaleItems(props: Props) {
     const { sale, isExpanded } = props;
 
-    const renderTableBody = () => {
+    const renderRows = () => {
         return (
             <>
                 {sale.items.map((item) => (
@@ -49,29 +47,34 @@ export default memo(function SaleListSaleItems(props: Props) {
                         </TableCell>
                     </TableRow>
                 ))}
-                {/* total */}
-                <TableRow
-                    sx={{
-                        color: "warning.dark",
-                        fontWeight: "bold",
-                        "& .MuiTableCell-root": {
-                            color: "inherit",
-                            fontWeight: "inherit",
-                        },
-                    }}
-                >
-                    <TableCell>Total da Venda</TableCell>
-                    <TableCell>{sale.totalItemsQuantity}</TableCell>
-                    <TableCell></TableCell>
-                    <TableCell>
-                        {convertToBRL(sale.calculateTotalPrice())}
-                    </TableCell>
-                    <TableCell></TableCell>
-                    <TableCell>
-                        {convertToBRL(sale.calculateTotalCommission())}
-                    </TableCell>
-                </TableRow>
+                {renderTotalRow}
             </>
+        );
+    };
+
+    const renderTotalRow = () => {
+        return (
+            <TableRow
+                sx={{
+                    color: "warning.dark",
+                    fontWeight: "bold",
+                    "& .MuiTableCell-root": {
+                        color: "inherit",
+                        fontWeight: "inherit",
+                    },
+                }}
+            >
+                <TableCell>Total da Venda</TableCell>
+                <TableCell>{sale.totalItemsQuantity}</TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                    {convertToBRL(sale.calculateTotalPrice())}
+                </TableCell>
+                <TableCell></TableCell>
+                <TableCell>
+                    {convertToBRL(sale.calculateTotalCommission())}
+                </TableCell>
+            </TableRow>
         );
     };
 
@@ -95,14 +98,14 @@ export default memo(function SaleListSaleItems(props: Props) {
                             <TableHead>
                                 <TableRow>{renderTableHeader()}</TableRow>
                             </TableHead>
-                            <TableBody>{renderTableBody()}</TableBody>
+                            <TableBody>{renderRows()}</TableBody>
                         </Table>
                     </Box>
                 </Collapse>
             </TableCell>
         </TableRow>
     );
-});
+}
 
 const tableHeaders = [
     "Produtos/Serviço",

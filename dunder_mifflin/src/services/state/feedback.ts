@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 
 import { AlertColor, SnackbarOrigin } from "@mui/material";
 
@@ -24,27 +24,33 @@ const initialState: IFeedback = {
 export default function useFeedbackState(): IFeedbackState {
     const [state, updateState] = useState<IFeedback>(initialState);
 
-    function showFeedback(message: string, severity: AlertColor = "error") {
-        updateState({
-            ...initialState,
-            message,
-            severity,
-            open: true,
-        });
-    }
+    const showFeedback = useCallback(
+        (message: string, severity: AlertColor = "error") => {
+            updateState({
+                ...initialState,
+                message,
+                severity,
+                open: true,
+            });
+        },
+        []
+    );
 
-    function closeFeedback() {
+    const closeFeedback = useCallback(() => {
         updateState({
             ...initialState,
             open: false,
         });
-    }
+    }, []);
 
-    return {
-        state,
-        showFeedback,
-        closeFeedback,
-    };
+    return useMemo(
+        () => ({
+            state,
+            showFeedback,
+            closeFeedback,
+        }),
+        [state, showFeedback, closeFeedback]
+    );
 }
 
 export interface IFeedbackState {
