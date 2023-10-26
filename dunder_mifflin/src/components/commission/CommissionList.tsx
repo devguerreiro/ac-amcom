@@ -21,7 +21,7 @@ export default memo(function CommissionList(props: IProps) {
 
     const totalPeriod = () => {
         return commissions.reduce(
-            (acc, v: Commission) => acc + v.totalCommission,
+            (acc, v: Commission) => acc + v.total_commission,
             0
         );
     };
@@ -31,8 +31,8 @@ export default memo(function CommissionList(props: IProps) {
             <TableRow key={c.id}>
                 <TableCell>{c.id}</TableCell>
                 <TableCell>{c.seller}</TableCell>
-                <TableCell>{c.totalQuantity}</TableCell>
-                <TableCell>{convertToBRL(c.totalQuantity)}</TableCell>
+                <TableCell>{c.total_quantity}</TableCell>
+                <TableCell>{convertToBRL(c.total_commission)}</TableCell>
             </TableRow>
         ));
     };

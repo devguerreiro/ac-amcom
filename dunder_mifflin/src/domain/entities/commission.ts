@@ -1,18 +1,18 @@
 class Commission {
     id: number;
     seller: string;
-    totalCommission: number;
-    totalQuantity: number;
+    total_commission: number;
+    total_quantity: number;
 
     constructor(
         id: number,
         seller: string,
-        totalCommission: number,
-        totalQuantity: number
+        total_commission: number,
+        total_quantity: number
     ) {
         this.id = id;
         this.seller = seller;
-        this.totalCommission = totalCommission;
-        this.totalQuantity = totalQuantity;
+        this.total_commission = total_commission;
+        this.total_quantity = total_quantity;
     }
 }
