@@ -1,5 +1,5 @@
 // framework
-import { useMemo } from "react";
+import { useCallback, useState } from "react";
 
 import Head from "next/head";
 import Link from "next/link";
@@ -13,6 +13,7 @@ import SaleList from "@/components/sale/SaleList";
 // app services
 import SaleAPI from "@/services/api/sale";
 import SaleService from "@/services/sale";
+import SaleContext from "@/services/contexts/sale";
 
 import { Sale } from "@/domain/entities/sale";
 
@@ -48,10 +49,13 @@ interface IProps extends IStaticProps {}
 export default function SalesPage(props: IProps) {
     const { data, error } = props;
 
-    const sales: Array<Sale> = useMemo(
-        () => SaleService.fromAPIList(data),
-        [data]
+    const [sales, setSales] = useState<Array<Sale>>(
+        SaleService.fromAPIList(data)
     );
+
+    const onDelete = useCallback((sale: Sale) => {
+        setSales(sales.filter((s: Sale) => s.id !== sale.id));
+    }, [sales])
 
     return (
         <>
@@ -83,7 +87,9 @@ export default function SalesPage(props: IProps) {
                     </Link>
                 </Box>
                 <Box mt={6}>
-                    <SaleList sales={sales} />
+                    <SaleContext.Provider value={{ onDelete }}>
+                        <SaleList sales={sales} />
+                    </SaleContext.Provider>
                 </Box>
             </Layout>
         </>
