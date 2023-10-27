@@ -9,7 +9,11 @@ Esta aplicacao foi desenvolvida utilizando Next.js com Material UI + React hook 
 
 Necessario fazer o clone do backend e executa-lo conforme as orientacoes do README do repositorio.
 
-Apos isso, basta acessar o diretorio **dunder_mifflin** deste repositorio e executar os seguintes comandos:
+Acesse o diretorio **dunder_mifflin** e crie um arquivo *.env.local* com a seguinte informacao:
+
+> NEXT_PUBLIC_API_BASE_URL=http://localhost:8000
+
+Apos isso, basta executar os seguintes comandos:
 
 Para instalacao das dependencias:
 `yarn ou npm install`
