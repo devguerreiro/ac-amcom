@@ -29,7 +29,7 @@ export async function getStaticPaths() {
             id: String(sale.id),
         },
     }));
-    return { paths, fallback: false };
+    return { paths, fallback: true };
 }
 
 interface IStaticProps {
