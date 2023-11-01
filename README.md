@@ -23,4 +23,4 @@ Para executacao da aplicacao:
 
 A aplicacao estara rodando no endereco **localhost:3000**
 
-![image](https://github.com/devguerreiro/fc-amcom/assets/50927696/910ea64a-1bce-4335-bd35-fccc1e57822f)
+![image](https://github.com/devguerreiro/fc-amcom/assets/50927696/36054750-e584-4fbc-ab46-d6fca088670a)
